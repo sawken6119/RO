@@ -10,10 +10,8 @@
 
 // Liste des fichiers pour les problemes de transport
 const char *nomsFichiers[] = {
-    "problem_1.txt","problem_2.txt","problem_3.txt",
-    "problem_4.txt","problem_5.txt","problem_6.txt",
-    "problem_7.txt","problem_8.txt","problem_9.txt",
-    "problem_10.txt","problem_11.txt","problem_12.txt",
+    "problem_1.txt","problem_2.txt","problem_3.txt","problem_4.txt","problem_5.txt","problem_6.txt",
+    "problem_7.txt","problem_8.txt","problem_9.txt","problem_10.txt","problem_11.txt","problem_12.txt",
 };
 #define NB_GRAPHES (sizeof(nomsFichiers) / sizeof(nomsFichiers[0]))
 
