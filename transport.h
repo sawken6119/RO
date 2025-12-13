@@ -1,51 +1,94 @@
 #ifndef TRANSPORT_H
 #define TRANSPORT_H
 
+#include <stddef.h>
 
 // Structure principale du problème de transport
 typedef struct {
-    int n_suppliers;        // Nombre de fournisseurs
-    int m_clients;          // Nombre de clients
+    int n_suppliers;      // Nombre de fournisseurs (n)
+    int m_clients;        // Nombre de clients (m)
 
-    // Données de base
-    int** cost_matrix;      // Coût pour chaque fournisseur vers chaque client
-    int* provisions;        // Quantité disponible par fournisseur
-    int* commands;          // Quantité demandée par client
+    int** cost_matrix;    // Matrice des coûts unitaires A[i][j]
+    int** transport_plan; // Proposition de transport b[i][j]
+    int** marginal_costs; // Coûts marginaux
 
-    // Solution et données intermédiaires
-    int** transport_plan;   // Quantité envoyée par chaque fournisseur
-    long long total_cost;   // Coût total du transport
+    int* provisions;      // Provisions P[i]
+    int* commands;        // Commandes C[j]
 
-    // Pour la méthode Step-Stone
-    int* u_potentials;      // Valeurs fournisseurs
-    int* v_potentials;      // Valeurs clients
-    int** marginal_costs;   // Coûts supplémentaires possibles
+    int* u_potentials;    // Potentiels u[i]
+    int* v_potentials;    // Potentiels v[j]
+
+    long long total_cost; // Coût total de la proposition
 } TransportProblem;
 
+// Structure pour représenter une arête (i,j)
+typedef struct {
+    int i, j;
+} Edge;
+
+// Structure pour un cycle
+typedef struct {
+    Edge* edges;
+    int length;
+    int capacity;
+} Cycle;
+
 // ==========================================================
-// Prototypes des fonctions
+// INITIALISATION ET LIBERATION
 // ==========================================================
+void initialize_problem_matrices(TransportProblem* p);
+void free_problem(TransportProblem* p);
 
-// Gestion mémoire
-void initialize_problem_matrices(TransportProblem* p); // Créer tableaux
-void free_problem(TransportProblem* p);                // Libérer mémoire
+// ==========================================================
+// LECTURE ET AFFICHAGE
+// ==========================================================
+int read_data_from_file(const char* filename, TransportProblem* p);
+void display_table(const char* title, int rows, int cols, int** matrix);
+void display_problem_data(const TransportProblem* p);
+void display_potentials(const TransportProblem* p);
+void display_potential_costs(const TransportProblem* p);
+void display_marginal_costs_table(const TransportProblem* p);
 
-// Lecture et affichage
-int read_data_from_file(const char* filename, TransportProblem* p); // Lire fichier
-void display_table(const char* title, int rows, int cols, int** matrix); // Afficher tableau
-void display_problem_data(const TransportProblem* p); // Afficher données
+// ==========================================================
+// ALGORITHMES INITIAUX
+// ==========================================================
+void north_west_corner(TransportProblem* p);
+void balas_hammer(TransportProblem* p);
+long long calculate_total_cost(const TransportProblem* p);
 
-// Méthodes principales
-void north_west_corner(TransportProblem* p);        // Méthode coin Nord-Ouest
-void balas_hammer(TransportProblem* p);             // Méthode Balas-Hammer
-long long calculate_total_cost(const TransportProblem* p); // Calcul coût total
-void run_step_stone(TransportProblem* p);           // Optimisation Step-Stone
+// ==========================================================
+// METHODE DU MARCHE-PIED
+// ==========================================================
+void run_step_stone(TransportProblem* p);
 
-// Fonctions internes Step-Stone
-int is_acyclic(const TransportProblem* p);          // Vérifier absence de cycle
-int find_and_maximize_cycle(TransportProblem* p);   // Trouver et améliorer cycle
-int is_connected(const TransportProblem* p);        // Vérifier connexion complète
-void calculate_potentials(TransportProblem* p);     // Calculer u et v
-void calculate_marginal_costs(TransportProblem* p); // Calculer coûts marginaux
+// Detection de cycle (parcours BFS)
+int is_acyclic(const TransportProblem* p, Cycle* cycle);
+int find_cycle(const TransportProblem* p, int si, int sj, Cycle* cycle);
+void display_cycle(const Cycle* cycle);
+
+// Maximisation sur un cycle
+int maximize_on_cycle(TransportProblem* p, const Cycle* cycle);
+
+// Test de connexité (parcours BFS)
+int is_connected(const TransportProblem* p);
+void make_connected(TransportProblem* p);
+
+// Calcul des potentiels
+void calculate_potentials(TransportProblem* p);
+
+// Calcul des coûts marginaux et détection arête améliorante
+void calculate_marginal_costs(TransportProblem* p);
+int find_best_improving_edge(const TransportProblem* p, int* best_i, int* best_j);
+
+// Ajout d'arête améliorante
+void add_improving_edge(TransportProblem* p, int i, int j);
+
+// ==========================================================
+// FONCTIONS UTILITAIRES
+// ==========================================================
+void init_cycle(Cycle* c);
+void free_cycle(Cycle* c);
+void add_edge_to_cycle(Cycle* c, int i, int j);
+int count_basic_variables(const TransportProblem* p);
 
 #endif // TRANSPORT_H
