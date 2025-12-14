@@ -1,0 +1,168 @@
+ Chargement du fichier: problem_1.txt
+========================================================
+
+#################################################
+Probleme de Transport (2 fournisseurs x 2 clients)
+#################################################
+
+--- Matrice des couts unitaires (A) ---
+         |  C1   |  C2   |   Pi  |
+P1     |    30 |    20 |    100 |
+P2     |    10 |    50 |    100 |
+      Cj |   100 |   100 |
+
+========================================================
+Choisissez l'algorithme pour la proposition initiale:
+  - NO : Nord-Ouest
+  - BH : Balas-Hammer
+Votre choix:BH
+
+========== ALGORITHME : Balas-Hammer ==========
+Penalite ligne P1 : 10 (min1=20, min2=30)
+Penalite ligne P2 : 40 (min1=10, min2=50)
+Penalite colonne C1 : 20 (min1=10, min2=30)
+Penalite colonne C2 : 30 (min1=20, min2=50)
+--> Penalite maximale = 40 (ligne P2)
+Affectation P2 -> C1 : 100
+
+Penalite ligne P1 : 20 (min1=20, min2=-1)
+Penalite colonne C2 : 20 (min1=20, min2=-1)
+--> Penalite maximale = 20 (ligne P1)
+Affectation P1 -> C2 : 100
+
+
+--- Proposition initiale (Balas-Hammer) ---
+     | C1 | C2 |
+------------------
+P1   |   0 | 100 |
+P2   | 100 |   0 |
+Cout total initial : 3000
+
+
+##########################################################
+## METHODE DU MARCHE-PIED AVEC POTENTIELS              ##
+##########################################################
+
+==========================================================
+                    ITERATION 1
+==========================================================
+
+--- Proposition de transport actuelle ---
+     | C1 | C2 |
+------------------
+P1   |   0 | 100 |
+P2   | 100 |   0 |
+Cout total: 3000
+
+Variables de base: 2 (attendu: 3)
+La proposition est DEGENEREE!
+
+--- Test de connexite (parcours BFS) ---
+Le graphe est NON CONNEXE!
+Noeuds actifs: 4, Noeuds visites: 2
+Composantes connexes:
+  Composante 1: P2 (et autres)
+  Composante 2: C1 (et autres)
+
+--- Modification pour rendre le graphe connexe ---
+Variables de base actuelles: 2, attendues: 3
+Ajout arete P1->C1 (cout=30)
+
+--- Test de connexite (parcours BFS) ---
+Le graphe est NON CONNEXE!
+Noeuds actifs: 4, Noeuds visites: 2
+Composantes connexes:
+  Composante 1: P2 (et autres)
+  Composante 2: C1 (et autres)
+Total aretes ajoutees: 1
+
+--- Proposition apres ajout aretes ---
+     | C1 | C2 |
+------------------
+P1   |   0 | 100 |
+P2   | 100 |   0 |
+
+--- Calcul des potentiels u_i et v_j ---
+
+--- Potentiels ---
+u: u1=0  u2=1000000
+v: v1=1000000  v2=20
+
+--- Table des couts potentiels (u_i + v_j) ---
+
+--- Couts potentiels ---
+         | C1     | C2     |
+------------------------------
+P1       | 1000000 |      20 |
+P2       | 2000000 | 1000020 |
+
+--- Couts marginaux ---
+     | C1 | C2 |
+------------------
+P1   |-999970 |   0 |
+P2   |-1999990 |-999970 |
+
+==> Arete ameliorante trouvee: P1->C1 (cout marginal = -999970)
+Ajout de l'arete ameliorante P1->C1
+Cycle detecte : P1->C1 -> P1->C1
+
+--- Maximisation du transport sur le cycle ---
+Arete P1->C1 : b[1][1] = 1
+Delta = 1
+Arete supprimee : P1->C1
+
+--- Fin iteration 1 ---
+
+==========================================================
+                    ITERATION 2
+==========================================================
+
+--- Proposition de transport actuelle ---
+     | C1 | C2 |
+------------------
+P1   |   1 | 100 |
+P2   | 100 |   0 |
+Cout total: 3030
+
+Variables de base: 3 (attendu: 3)
+
+--- Test de connexite (parcours BFS) ---
+Le graphe est CONNEXE.
+
+--- Calcul des potentiels u_i et v_j ---
+
+--- Potentiels ---
+u: u1=0  u2=-20
+v: v1=30  v2=20
+
+--- Table des couts potentiels (u_i + v_j) ---
+
+--- Couts potentiels ---
+     | C1 | C2 |
+------------------
+P1   |  30 |  20 |
+P2   |  10 |   0 |
+
+--- Couts marginaux ---
+     | C1 | C2 |
+------------------
+P1   |   0 |   0 |
+P2   |   0 |  50 |
+
+==> Aucune arete ameliorante (SOLUTION OPTIMALE)
+
+*** SOLUTION OPTIMALE ATTEINTE ***
+
+
+##########################################################
+##              RESULTAT FINAL OPTIMAL                  ##
+##########################################################
+
+--- PROPOSITION DE TRANSPORT OPTIMALE ---
+     | C1 | C2 |
+------------------
+P1   |   1 | 100 |
+P2   | 100 |   0 |
+
+>>> COUT MINIMAL TOTAL: 3030 <<<
+##########################################################

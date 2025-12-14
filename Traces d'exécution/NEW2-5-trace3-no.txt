@@ -1,0 +1,138 @@
+ Chargement du fichier: problem_3.txt
+========================================================
+
+#################################################
+Probleme de Transport (2 fournisseurs x 2 clients)
+#################################################
+
+--- Matrice des couts unitaires (A) ---
+         |  C1   |  C2   |   Pi  |
+P1     |    30 |    20 |    600 |
+P2     |    10 |    50 |    500 |
+      Cj |   100 |  1000 |
+
+========================================================
+Choisissez l'algorithme pour la proposition initiale:
+  - NO : Nord-Ouest
+  - BH : Balas-Hammer
+Votre choix:NO
+
+========== ALGORITHME : Coin Nord-Ouest ==========
+Affectation P1 -> C1 : 100 (reste P1=500, C1=0)
+Affectation P1 -> C2 : 500 (reste P1=0, C2=500)
+Affectation P2 -> C2 : 500 (reste P2=0, C2=0)
+
+--- Proposition initiale (Nord-Ouest) ---
+     | C1 | C2 |
+------------------
+P1   | 100 | 500 |
+P2   |   0 | 500 |
+
+Cout total initial : 38000
+
+
+##########################################################
+## METHODE DU MARCHE-PIED AVEC POTENTIELS              ##
+##########################################################
+
+==========================================================
+                    ITERATION 1
+==========================================================
+
+--- Proposition de transport actuelle ---
+     | C1 | C2 |
+------------------
+P1   | 100 | 500 |
+P2   |   0 | 500 |
+Cout total: 38000
+
+Variables de base: 3 (attendu: 3)
+
+--- Test de connexite (parcours BFS) ---
+Le graphe est CONNEXE.
+
+--- Calcul des potentiels u_i et v_j ---
+
+--- Potentiels ---
+u: u1=0  u2=30
+v: v1=30  v2=20
+
+--- Table des couts potentiels (u_i + v_j) ---
+
+--- Couts potentiels ---
+     | C1 | C2 |
+------------------
+P1   |  30 |  20 |
+P2   |  60 |  50 |
+
+--- Couts marginaux ---
+     | C1 | C2 |
+------------------
+P1   |   0 |   0 |
+P2   | -50 |   0 |
+
+==> Arete ameliorante trouvee: P2->C1 (cout marginal = -50)
+Ajout de l'arete ameliorante P2->C1
+Cycle detecte : P2->C1 -> P2->C1
+
+--- Maximisation du transport sur le cycle ---
+Arete P2->C1 : b[2][1] = 1
+Delta = 1
+Arete supprimee : P2->C1
+
+--- Fin iteration 1 ---
+
+==========================================================
+                    ITERATION 2
+==========================================================
+
+--- Proposition de transport actuelle ---
+     | C1 | C2 |
+------------------
+P1   | 100 | 500 |
+P2   |   1 | 500 |
+Cout total: 38010
+
+Variables de base: 4 (attendu: 3)
+Impossible de maximiser (delta=0)
+
+--- Test de connexite (parcours BFS) ---
+Le graphe est CONNEXE.
+
+--- Calcul des potentiels u_i et v_j ---
+
+--- Potentiels ---
+u: u1=0  u2=-20
+v: v1=30  v2=20
+
+--- Table des couts potentiels (u_i + v_j) ---
+
+--- Couts potentiels ---
+     | C1 | C2 |
+------------------
+P1   |  30 |  20 |
+P2   |  10 |   0 |
+
+--- Couts marginaux ---
+     | C1 | C2 |
+------------------
+P1   |   0 |   0 |
+P2   |   0 |  50 |
+
+==> Aucune arete ameliorante (SOLUTION OPTIMALE)
+
+*** SOLUTION OPTIMALE ATTEINTE ***
+
+
+##########################################################
+##              RESULTAT FINAL OPTIMAL                  ##
+##########################################################
+
+--- PROPOSITION DE TRANSPORT OPTIMALE ---
+     | C1 | C2 |
+------------------
+P1   | 100 | 500 |
+P2   |   1 | 500 |
+
+>>> COUT MINIMAL TOTAL: 38010 <<<
+##########################################################

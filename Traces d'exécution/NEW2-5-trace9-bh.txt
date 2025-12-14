@@ -1,0 +1,867 @@
+Chargement du fichier: problem_9.txt
+========================================================
+
+#################################################
+Probleme de Transport (7 fournisseurs x 3 clients)
+#################################################
+
+--- Matrice des couts unitaires (A) ---
+         |  C1   |  C2   |  C3   |   Pi  |
+P1     |    30 |    20 |    15 |    100 |
+P2     |    10 |    50 |     2 |    100 |
+P3     |     9 |    10 |    30 |    100 |
+P4     |     6 |     2 |    29 |    100 |
+P5     |    50 |    40 |     3 |    100 |
+P6     |     5 |    38 |    27 |    100 |
+P7     |    50 |     4 |    22 |    100 |
+      Cj |   400 |   200 |   100 |
+
+========================================================
+Choisissez l'algorithme pour la proposition initiale:
+  - NO : Nord-Ouest
+  - BH : Balas-Hammer
+Votre choix:bh
+
+
+========== ALGORITHME : Balas-Hammer ==========
+Penalite ligne P1 : 5 (min1=15, min2=20)
+Penalite ligne P2 : 8 (min1=2, min2=10)
+Penalite ligne P3 : 1 (min1=9, min2=10)
+Penalite ligne P4 : 4 (min1=2, min2=6)
+Penalite ligne P5 : 37 (min1=3, min2=40)
+Penalite ligne P6 : 22 (min1=5, min2=27)
+Penalite ligne P7 : 18 (min1=4, min2=22)
+Penalite colonne C1 : 1 (min1=5, min2=6)
+Penalite colonne C2 : 2 (min1=2, min2=4)
+Penalite colonne C3 : 1 (min1=2, min2=3)
+--> Penalite maximale = 37 (ligne P5)
+Affectation P5 -> C3 : 100
+
+Penalite ligne P1 : 10 (min1=20, min2=30)
+Penalite ligne P2 : 40 (min1=10, min2=50)
+Penalite ligne P3 : 1 (min1=9, min2=10)
+Penalite ligne P4 : 4 (min1=2, min2=6)
+Penalite ligne P6 : 33 (min1=5, min2=38)
+Penalite ligne P7 : 46 (min1=4, min2=50)
+Penalite colonne C1 : 1 (min1=5, min2=6)
+Penalite colonne C2 : 2 (min1=2, min2=4)
+--> Penalite maximale = 46 (ligne P7)
+Affectation P7 -> C2 : 100
+
+Penalite ligne P1 : 10 (min1=20, min2=30)
+Penalite ligne P2 : 40 (min1=10, min2=50)
+Penalite ligne P3 : 1 (min1=9, min2=10)
+Penalite ligne P4 : 4 (min1=2, min2=6)
+Penalite ligne P6 : 33 (min1=5, min2=38)
+Penalite colonne C1 : 1 (min1=5, min2=6)
+Penalite colonne C2 : 8 (min1=2, min2=10)
+--> Penalite maximale = 40 (ligne P2)
+Affectation P2 -> C1 : 100
+
+Penalite ligne P1 : 10 (min1=20, min2=30)
+Penalite ligne P3 : 1 (min1=9, min2=10)
+Penalite ligne P4 : 4 (min1=2, min2=6)
+Penalite ligne P6 : 33 (min1=5, min2=38)
+Penalite colonne C1 : 1 (min1=5, min2=6)
+Penalite colonne C2 : 8 (min1=2, min2=10)
+--> Penalite maximale = 33 (ligne P6)
+Affectation P6 -> C1 : 100
+
+Penalite ligne P1 : 10 (min1=20, min2=30)
+Penalite ligne P3 : 1 (min1=9, min2=10)
+Penalite ligne P4 : 4 (min1=2, min2=6)
+Penalite colonne C1 : 3 (min1=6, min2=9)
+Penalite colonne C2 : 8 (min1=2, min2=10)
+--> Penalite maximale = 10 (ligne P1)
+Affectation P1 -> C2 : 100
+
+Penalite ligne P3 : 9 (min1=9, min2=-1)
+Penalite ligne P4 : 6 (min1=6, min2=-1)
+Penalite colonne C1 : 3 (min1=6, min2=9)
+--> Penalite maximale = 9 (ligne P3)
+Affectation P3 -> C1 : 100
+
+Penalite ligne P4 : 6 (min1=6, min2=-1)
+Penalite colonne C1 : 6 (min1=6, min2=-1)
+--> Penalite maximale = 6 (ligne P4)
+Affectation P4 -> C1 : 100
+
+
+--- Proposition initiale (Balas-Hammer) ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |   0 | 100 |   0 |
+P2   | 100 |   0 |   0 |
+P3   | 100 |   0 |   0 |
+P4   | 100 |   0 |   0 |
+P5   |   0 |   0 | 100 |
+P6   | 100 |   0 |   0 |
+P7   |   0 | 100 |   0 |
+Cout total initial : 5700
+
+
+##########################################################
+## METHODE DU MARCHE-PIED AVEC POTENTIELS              ##
+##########################################################
+
+==========================================================
+                    ITERATION 1
+==========================================================
+
+--- Proposition de transport actuelle ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |   0 | 100 |   0 |
+P2   | 100 |   0 |   0 |
+P3   | 100 |   0 |   0 |
+P4   | 100 |   0 |   0 |
+P5   |   0 |   0 | 100 |
+P6   | 100 |   0 |   0 |
+P7   |   0 | 100 |   0 |
+Cout total: 5700
+
+Variables de base: 7 (attendu: 9)
+La proposition est DEGENEREE!
+
+--- Test de connexite (parcours BFS) ---
+Le graphe est NON CONNEXE!
+Noeuds actifs: 10, Noeuds visites: 3
+Composantes connexes:
+  Composante 1: P2 (et autres)
+  Composante 2: P3 (et autres)
+  Composante 3: P4 (et autres)
+  Composante 4: P5 (et autres)
+  Composante 5: P6 (et autres)
+  Composante 6: C1 (et autres)
+  Composante 7: C3 (et autres)
+
+--- Modification pour rendre le graphe connexe ---
+Variables de base actuelles: 7, attendues: 9
+Ajout arete P2->C3 (cout=2)
+
+--- Test de connexite (parcours BFS) ---
+Le graphe est NON CONNEXE!
+Noeuds actifs: 10, Noeuds visites: 3
+Composantes connexes:
+  Composante 1: P2 (et autres)
+  Composante 2: P3 (et autres)
+  Composante 3: P4 (et autres)
+  Composante 4: P5 (et autres)
+  Composante 5: P6 (et autres)
+  Composante 6: C1 (et autres)
+  Composante 7: C3 (et autres)
+Ajout arete P4->C2 (cout=2)
+
+--- Test de connexite (parcours BFS) ---
+Le graphe est NON CONNEXE!
+Noeuds actifs: 10, Noeuds visites: 3
+Composantes connexes:
+  Composante 1: P2 (et autres)
+  Composante 2: P3 (et autres)
+  Composante 3: P4 (et autres)
+  Composante 4: P5 (et autres)
+  Composante 5: P6 (et autres)
+  Composante 6: C1 (et autres)
+  Composante 7: C3 (et autres)
+Total aretes ajoutees: 2
+
+--- Proposition apres ajout aretes ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |   0 | 100 |   0 |
+P2   | 100 |   0 |   0 |
+P3   | 100 |   0 |   0 |
+P4   | 100 |   0 |   0 |
+P5   |   0 |   0 | 100 |
+P6   | 100 |   0 |   0 |
+P7   |   0 | 100 |   0 |
+
+--- Calcul des potentiels u_i et v_j ---
+
+--- Potentiels ---
+u: u1=0  u2=1000000  u3=1000000  u4=1000000  u5=1000000  u6=1000000  u7=-16
+v: v1=1000000  v2=20  v3=1000000
+
+--- Table des couts potentiels (u_i + v_j) ---
+
+--- Couts potentiels ---
+         | C1     | C2     | C3     |
+----------------------------------------
+P1       | 1000000 |      20 | 1000000 |
+P2       | 2000000 | 1000020 | 2000000 |
+P3       | 2000000 | 1000020 | 2000000 |
+P4       | 2000000 | 1000020 | 2000000 |
+P5       | 2000000 | 1000020 | 2000000 |
+P6       | 2000000 | 1000020 | 2000000 |
+P7       |  999984 |       4 |  999984 |
+
+--- Couts marginaux ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |-999970 |   0 |-999985 |
+P2   |-1999990 |-999970 |-1999998 |
+P3   |-1999991 |-1000010 |-1999970 |
+P4   |-1999994 |-1000018 |-1999971 |
+P5   |-1999950 |-999980 |-1999997 |
+P6   |-1999995 |-999982 |-1999973 |
+P7   |-999934 |   0 |-999962 |
+
+==> Arete ameliorante trouvee: P2->C3 (cout marginal = -1999998)
+Ajout de l'arete ameliorante P2->C3
+Cycle detecte : P2->C3 -> P2->C3
+
+--- Maximisation du transport sur le cycle ---
+Arete P2->C3 : b[2][3] = 1
+Delta = 1
+Arete supprimee : P2->C3
+
+--- Fin iteration 1 ---
+
+==========================================================
+                    ITERATION 2
+==========================================================
+
+--- Proposition de transport actuelle ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |   0 | 100 |   0 |
+P2   | 100 |   0 |   1 |
+P3   | 100 |   0 |   0 |
+P4   | 100 |   0 |   0 |
+P5   |   0 |   0 | 100 |
+P6   | 100 |   0 |   0 |
+P7   |   0 | 100 |   0 |
+Cout total: 5702
+
+Variables de base: 8 (attendu: 9)
+La proposition est DEGENEREE!
+
+--- Test de connexite (parcours BFS) ---
+Le graphe est NON CONNEXE!
+Noeuds actifs: 10, Noeuds visites: 3
+Composantes connexes:
+  Composante 1: P2 (et autres)
+  Composante 2: P3 (et autres)
+  Composante 3: P4 (et autres)
+  Composante 4: P5 (et autres)
+  Composante 5: P6 (et autres)
+  Composante 6: C1 (et autres)
+  Composante 7: C3 (et autres)
+
+--- Modification pour rendre le graphe connexe ---
+Variables de base actuelles: 8, attendues: 9
+Ajout arete P4->C2 (cout=2)
+
+--- Test de connexite (parcours BFS) ---
+Le graphe est NON CONNEXE!
+Noeuds actifs: 10, Noeuds visites: 3
+Composantes connexes:
+  Composante 1: P2 (et autres)
+  Composante 2: P3 (et autres)
+  Composante 3: P4 (et autres)
+  Composante 4: P5 (et autres)
+  Composante 5: P6 (et autres)
+  Composante 6: C1 (et autres)
+  Composante 7: C3 (et autres)
+Total aretes ajoutees: 1
+
+--- Proposition apres ajout aretes ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |   0 | 100 |   0 |
+P2   | 100 |   0 |   1 |
+P3   | 100 |   0 |   0 |
+P4   | 100 |   0 |   0 |
+P5   |   0 |   0 | 100 |
+P6   | 100 |   0 |   0 |
+P7   |   0 | 100 |   0 |
+
+--- Calcul des potentiels u_i et v_j ---
+
+--- Potentiels ---
+u: u1=0  u2=1000000  u3=1000000  u4=1000000  u5=1000000  u6=1000000  u7=-16
+v: v1=1000000  v2=20  v3=1000000
+
+--- Table des couts potentiels (u_i + v_j) ---
+
+--- Couts potentiels ---
+         | C1     | C2     | C3     |
+----------------------------------------
+P1       | 1000000 |      20 | 1000000 |
+P2       | 2000000 | 1000020 | 2000000 |
+P3       | 2000000 | 1000020 | 2000000 |
+P4       | 2000000 | 1000020 | 2000000 |
+P5       | 2000000 | 1000020 | 2000000 |
+P6       | 2000000 | 1000020 | 2000000 |
+P7       |  999984 |       4 |  999984 |
+
+--- Couts marginaux ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |-999970 |   0 |-999985 |
+P2   |-1999990 |-999970 |-1999998 |
+P3   |-1999991 |-1000010 |-1999970 |
+P4   |-1999994 |-1000018 |-1999971 |
+P5   |-1999950 |-999980 |-1999997 |
+P6   |-1999995 |-999982 |-1999973 |
+P7   |-999934 |   0 |-999962 |
+
+==> Arete ameliorante trouvee: P6->C3 (cout marginal = -1999973)
+Ajout de l'arete ameliorante P6->C3
+Cycle detecte : P6->C3 -> P6->C3
+
+--- Maximisation du transport sur le cycle ---
+Arete P6->C3 : b[6][3] = 1
+Delta = 1
+Arete supprimee : P6->C3
+
+--- Fin iteration 2 ---
+
+==========================================================
+                    ITERATION 3
+==========================================================
+
+--- Proposition de transport actuelle ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |   0 | 100 |   0 |
+P2   | 100 |   0 |   1 |
+P3   | 100 |   0 |   0 |
+P4   | 100 |   0 |   0 |
+P5   |   0 |   0 | 100 |
+P6   | 100 |   0 |   1 |
+P7   |   0 | 100 |   0 |
+Cout total: 5729
+
+Variables de base: 9 (attendu: 9)
+Impossible de maximiser (delta=0)
+
+--- Test de connexite (parcours BFS) ---
+Le graphe est NON CONNEXE!
+Noeuds actifs: 10, Noeuds visites: 3
+Composantes connexes:
+  Composante 1: P2 (et autres)
+  Composante 2: P3 (et autres)
+  Composante 3: P4 (et autres)
+  Composante 4: P5 (et autres)
+  Composante 5: P6 (et autres)
+  Composante 6: C1 (et autres)
+  Composante 7: C3 (et autres)
+
+--- Modification pour rendre le graphe connexe ---
+Variables de base actuelles: 9, attendues: 9
+Total aretes ajoutees: 0
+
+--- Proposition apres ajout aretes ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |   0 | 100 |   0 |
+P2   | 100 |   0 |   1 |
+P3   | 100 |   0 |   0 |
+P4   | 100 |   0 |   0 |
+P5   |   0 |   0 | 100 |
+P6   | 100 |   0 |   1 |
+P7   |   0 | 100 |   0 |
+
+--- Calcul des potentiels u_i et v_j ---
+
+--- Potentiels ---
+u: u1=0  u2=1000000  u3=1000000  u4=1000000  u5=1000000  u6=1000000  u7=-16
+v: v1=1000000  v2=20  v3=1000000
+
+--- Table des couts potentiels (u_i + v_j) ---
+
+--- Couts potentiels ---
+         | C1     | C2     | C3     |
+----------------------------------------
+P1       | 1000000 |      20 | 1000000 |
+P2       | 2000000 | 1000020 | 2000000 |
+P3       | 2000000 | 1000020 | 2000000 |
+P4       | 2000000 | 1000020 | 2000000 |
+P5       | 2000000 | 1000020 | 2000000 |
+P6       | 2000000 | 1000020 | 2000000 |
+P7       |  999984 |       4 |  999984 |
+
+--- Couts marginaux ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |-999970 |   0 |-999985 |
+P2   |-1999990 |-999970 |-1999998 |
+P3   |-1999991 |-1000010 |-1999970 |
+P4   |-1999994 |-1000018 |-1999971 |
+P5   |-1999950 |-999980 |-1999997 |
+P6   |-1999995 |-999982 |-1999973 |
+P7   |-999934 |   0 |-999962 |
+
+==> Arete ameliorante trouvee: P4->C3 (cout marginal = -1999971)
+Ajout de l'arete ameliorante P4->C3
+Cycle detecte : P4->C3 -> P4->C3
+
+--- Maximisation du transport sur le cycle ---
+Arete P4->C3 : b[4][3] = 1
+Delta = 1
+Arete supprimee : P4->C3
+
+--- Fin iteration 3 ---
+
+==========================================================
+                    ITERATION 4
+==========================================================
+
+--- Proposition de transport actuelle ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |   0 | 100 |   0 |
+P2   | 100 |   0 |   1 |
+P3   | 100 |   0 |   0 |
+P4   | 100 |   0 |   1 |
+P5   |   0 |   0 | 100 |
+P6   | 100 |   0 |   1 |
+P7   |   0 | 100 |   0 |
+Cout total: 5758
+
+Variables de base: 10 (attendu: 9)
+Impossible de maximiser (delta=0)
+
+--- Test de connexite (parcours BFS) ---
+Le graphe est NON CONNEXE!
+Noeuds actifs: 10, Noeuds visites: 3
+Composantes connexes:
+  Composante 1: P2 (et autres)
+  Composante 2: P3 (et autres)
+  Composante 3: P4 (et autres)
+  Composante 4: P5 (et autres)
+  Composante 5: P6 (et autres)
+  Composante 6: C1 (et autres)
+  Composante 7: C3 (et autres)
+
+--- Modification pour rendre le graphe connexe ---
+Variables de base actuelles: 10, attendues: 9
+Total aretes ajoutees: 0
+
+--- Proposition apres ajout aretes ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |   0 | 100 |   0 |
+P2   | 100 |   0 |   1 |
+P3   | 100 |   0 |   0 |
+P4   | 100 |   0 |   1 |
+P5   |   0 |   0 | 100 |
+P6   | 100 |   0 |   1 |
+P7   |   0 | 100 |   0 |
+
+--- Calcul des potentiels u_i et v_j ---
+
+--- Potentiels ---
+u: u1=0  u2=1000000  u3=1000000  u4=1000000  u5=1000000  u6=1000000  u7=-16
+v: v1=1000000  v2=20  v3=1000000
+
+--- Table des couts potentiels (u_i + v_j) ---
+
+--- Couts potentiels ---
+         | C1     | C2     | C3     |
+----------------------------------------
+P1       | 1000000 |      20 | 1000000 |
+P2       | 2000000 | 1000020 | 2000000 |
+P3       | 2000000 | 1000020 | 2000000 |
+P4       | 2000000 | 1000020 | 2000000 |
+P5       | 2000000 | 1000020 | 2000000 |
+P6       | 2000000 | 1000020 | 2000000 |
+P7       |  999984 |       4 |  999984 |
+
+--- Couts marginaux ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |-999970 |   0 |-999985 |
+P2   |-1999990 |-999970 |-1999998 |
+P3   |-1999991 |-1000010 |-1999970 |
+P4   |-1999994 |-1000018 |-1999971 |
+P5   |-1999950 |-999980 |-1999997 |
+P6   |-1999995 |-999982 |-1999973 |
+P7   |-999934 |   0 |-999962 |
+
+==> Arete ameliorante trouvee: P3->C3 (cout marginal = -1999970)
+Ajout de l'arete ameliorante P3->C3
+Cycle detecte : P3->C3 -> P3->C3
+
+--- Maximisation du transport sur le cycle ---
+Arete P3->C3 : b[3][3] = 1
+Delta = 1
+Arete supprimee : P3->C3
+
+--- Fin iteration 4 ---
+
+==========================================================
+                    ITERATION 5
+==========================================================
+
+--- Proposition de transport actuelle ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |   0 | 100 |   0 |
+P2   | 100 |   0 |   1 |
+P3   | 100 |   0 |   1 |
+P4   | 100 |   0 |   1 |
+P5   |   0 |   0 | 100 |
+P6   | 100 |   0 |   1 |
+P7   |   0 | 100 |   0 |
+Cout total: 5788
+
+Variables de base: 11 (attendu: 9)
+Impossible de maximiser (delta=0)
+
+--- Test de connexite (parcours BFS) ---
+Le graphe est NON CONNEXE!
+Noeuds actifs: 10, Noeuds visites: 3
+Composantes connexes:
+  Composante 1: P2 (et autres)
+  Composante 2: P3 (et autres)
+  Composante 3: P4 (et autres)
+  Composante 4: P5 (et autres)
+  Composante 5: P6 (et autres)
+  Composante 6: C1 (et autres)
+  Composante 7: C3 (et autres)
+
+--- Modification pour rendre le graphe connexe ---
+Variables de base actuelles: 11, attendues: 9
+Total aretes ajoutees: 0
+
+--- Proposition apres ajout aretes ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |   0 | 100 |   0 |
+P2   | 100 |   0 |   1 |
+P3   | 100 |   0 |   1 |
+P4   | 100 |   0 |   1 |
+P5   |   0 |   0 | 100 |
+P6   | 100 |   0 |   1 |
+P7   |   0 | 100 |   0 |
+
+--- Calcul des potentiels u_i et v_j ---
+
+--- Potentiels ---
+u: u1=0  u2=1000000  u3=1000000  u4=1000000  u5=1000000  u6=1000000  u7=-16
+v: v1=1000000  v2=20  v3=1000000
+
+--- Table des couts potentiels (u_i + v_j) ---
+
+--- Couts potentiels ---
+         | C1     | C2     | C3     |
+----------------------------------------
+P1       | 1000000 |      20 | 1000000 |
+P2       | 2000000 | 1000020 | 2000000 |
+P3       | 2000000 | 1000020 | 2000000 |
+P4       | 2000000 | 1000020 | 2000000 |
+P5       | 2000000 | 1000020 | 2000000 |
+P6       | 2000000 | 1000020 | 2000000 |
+P7       |  999984 |       4 |  999984 |
+
+--- Couts marginaux ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |-999970 |   0 |-999985 |
+P2   |-1999990 |-999970 |-1999998 |
+P3   |-1999991 |-1000010 |-1999970 |
+P4   |-1999994 |-1000018 |-1999971 |
+P5   |-1999950 |-999980 |-1999997 |
+P6   |-1999995 |-999982 |-1999973 |
+P7   |-999934 |   0 |-999962 |
+
+==> Arete ameliorante trouvee: P5->C1 (cout marginal = -1999950)
+Ajout de l'arete ameliorante P5->C1
+Cycle detecte : P5->C1 -> P5->C1
+
+--- Maximisation du transport sur le cycle ---
+Arete P5->C1 : b[5][1] = 1
+Delta = 1
+Arete supprimee : P5->C1
+
+--- Fin iteration 5 ---
+
+==========================================================
+                    ITERATION 6
+==========================================================
+
+--- Proposition de transport actuelle ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |   0 | 100 |   0 |
+P2   | 100 |   0 |   1 |
+P3   | 100 |   0 |   1 |
+P4   | 100 |   0 |   1 |
+P5   |   1 |   0 | 100 |
+P6   | 100 |   0 |   1 |
+P7   |   0 | 100 |   0 |
+Cout total: 5838
+
+Variables de base: 12 (attendu: 9)
+Impossible de maximiser (delta=0)
+
+--- Test de connexite (parcours BFS) ---
+Le graphe est NON CONNEXE!
+Noeuds actifs: 10, Noeuds visites: 3
+Composantes connexes:
+  Composante 1: P2 (et autres)
+  Composante 2: P3 (et autres)
+  Composante 3: P4 (et autres)
+  Composante 4: P5 (et autres)
+  Composante 5: P6 (et autres)
+  Composante 6: C1 (et autres)
+  Composante 7: C3 (et autres)
+
+--- Modification pour rendre le graphe connexe ---
+Variables de base actuelles: 12, attendues: 9
+Total aretes ajoutees: 0
+
+--- Proposition apres ajout aretes ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |   0 | 100 |   0 |
+P2   | 100 |   0 |   1 |
+P3   | 100 |   0 |   1 |
+P4   | 100 |   0 |   1 |
+P5   |   1 |   0 | 100 |
+P6   | 100 |   0 |   1 |
+P7   |   0 | 100 |   0 |
+
+--- Calcul des potentiels u_i et v_j ---
+
+--- Potentiels ---
+u: u1=0  u2=1000000  u3=1000000  u4=1000000  u5=1000000  u6=1000000  u7=-16
+v: v1=1000000  v2=20  v3=1000000
+
+--- Table des couts potentiels (u_i + v_j) ---
+
+--- Couts potentiels ---
+         | C1     | C2     | C3     |
+----------------------------------------
+P1       | 1000000 |      20 | 1000000 |
+P2       | 2000000 | 1000020 | 2000000 |
+P3       | 2000000 | 1000020 | 2000000 |
+P4       | 2000000 | 1000020 | 2000000 |
+P5       | 2000000 | 1000020 | 2000000 |
+P6       | 2000000 | 1000020 | 2000000 |
+P7       |  999984 |       4 |  999984 |
+
+--- Couts marginaux ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |-999970 |   0 |-999985 |
+P2   |-1999990 |-999970 |-1999998 |
+P3   |-1999991 |-1000010 |-1999970 |
+P4   |-1999994 |-1000018 |-1999971 |
+P5   |-1999950 |-999980 |-1999997 |
+P6   |-1999995 |-999982 |-1999973 |
+P7   |-999934 |   0 |-999962 |
+
+==> Arete ameliorante trouvee: P4->C2 (cout marginal = -1000018)
+Ajout de l'arete ameliorante P4->C2
+Cycle detecte : P4->C2 -> P4->C2
+
+--- Maximisation du transport sur le cycle ---
+Arete P4->C2 : b[4][2] = 1
+Delta = 1
+Arete supprimee : P4->C2
+
+--- Fin iteration 6 ---
+
+==========================================================
+                    ITERATION 7
+==========================================================
+
+--- Proposition de transport actuelle ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |   0 | 100 |   0 |
+P2   | 100 |   0 |   1 |
+P3   | 100 |   0 |   1 |
+P4   | 100 |   1 |   1 |
+P5   |   1 |   0 | 100 |
+P6   | 100 |   0 |   1 |
+P7   |   0 | 100 |   0 |
+Cout total: 5840
+
+Variables de base: 13 (attendu: 9)
+Impossible de maximiser (delta=0)
+
+--- Test de connexite (parcours BFS) ---
+Le graphe est CONNEXE.
+
+--- Calcul des potentiels u_i et v_j ---
+
+--- Potentiels ---
+u: u1=0  u2=-45  u3=-17  u4=-18  u5=-44  u6=-20  u7=-16
+v: v1=24  v2=20  v3=47
+
+--- Table des couts potentiels (u_i + v_j) ---
+
+--- Couts potentiels ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |  24 |  20 |  47 |
+P2   | -21 | -25 |   2 |
+P3   |   7 |   3 |  30 |
+P4   |   6 |   2 |  29 |
+P5   | -20 | -24 |   3 |
+P6   |   4 |   0 |  27 |
+P7   |   8 |   4 |  31 |
+
+--- Couts marginaux ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |   6 |   0 | -32 |
+P2   |  31 |  75 |   0 |
+P3   |   2 |   7 |   0 |
+P4   |   0 |   0 |   0 |
+P5   |  70 |  64 |   0 |
+P6   |   1 |  38 |   0 |
+P7   |  42 |   0 |  -9 |
+
+==> Arete ameliorante trouvee: P1->C3 (cout marginal = -32)
+Ajout de l'arete ameliorante P1->C3
+Cycle detecte : P1->C3 -> P1->C3
+
+--- Maximisation du transport sur le cycle ---
+Arete P1->C3 : b[1][3] = 1
+Delta = 1
+Arete supprimee : P1->C3
+
+--- Fin iteration 7 ---
+
+==========================================================
+                    ITERATION 8
+==========================================================
+
+--- Proposition de transport actuelle ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |   0 | 100 |   1 |
+P2   | 100 |   0 |   1 |
+P3   | 100 |   0 |   1 |
+P4   | 100 |   1 |   1 |
+P5   |   1 |   0 | 100 |
+P6   | 100 |   0 |   1 |
+P7   |   0 | 100 |   0 |
+Cout total: 5855
+
+Variables de base: 14 (attendu: 9)
+Impossible de maximiser (delta=0)
+
+--- Test de connexite (parcours BFS) ---
+Le graphe est CONNEXE.
+
+--- Calcul des potentiels u_i et v_j ---
+
+--- Potentiels ---
+u: u1=0  u2=-13  u3=15  u4=-18  u5=-12  u6=12  u7=-16
+v: v1=23  v2=20  v3=15
+
+--- Table des couts potentiels (u_i + v_j) ---
+
+--- Couts potentiels ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |  23 |  20 |  15 |
+P2   |  10 |   7 |   2 |
+P3   |  38 |  35 |  30 |
+P4   |   5 |   2 |  -3 |
+P5   |  11 |   8 |   3 |
+P6   |  35 |  32 |  27 |
+P7   |   7 |   4 |  -1 |
+
+--- Couts marginaux ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |   7 |   0 |   0 |
+P2   |   0 |  43 |   0 |
+P3   | -29 | -25 |   0 |
+P4   |   1 |   0 |  32 |
+P5   |  39 |  32 |   0 |
+P6   | -30 |   6 |   0 |
+P7   |  43 |   0 |  23 |
+
+==> Arete ameliorante trouvee: P3->C2 (cout marginal = -25)
+Ajout de l'arete ameliorante P3->C2
+Cycle detecte : P3->C2 -> P3->C2
+
+--- Maximisation du transport sur le cycle ---
+Arete P3->C2 : b[3][2] = 1
+Delta = 1
+Arete supprimee : P3->C2
+
+--- Fin iteration 8 ---
+
+==========================================================
+                    ITERATION 9
+==========================================================
+
+--- Proposition de transport actuelle ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |   0 | 100 |   1 |
+P2   | 100 |   0 |   1 |
+P3   | 100 |   1 |   1 |
+P4   | 100 |   1 |   1 |
+P5   |   1 |   0 | 100 |
+P6   | 100 |   0 |   1 |
+P7   |   0 | 100 |   0 |
+Cout total: 5865
+
+Variables de base: 15 (attendu: 9)
+Impossible de maximiser (delta=0)
+
+--- Test de connexite (parcours BFS) ---
+Le graphe est CONNEXE.
+
+--- Calcul des potentiels u_i et v_j ---
+
+--- Potentiels ---
+u: u1=0  u2=-13  u3=-10  u4=-18  u5=-12  u6=12  u7=-16
+v: v1=23  v2=20  v3=15
+
+--- Table des couts potentiels (u_i + v_j) ---
+
+--- Couts potentiels ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |  23 |  20 |  15 |
+P2   |  10 |   7 |   2 |
+P3   |  13 |  10 |   5 |
+P4   |   5 |   2 |  -3 |
+P5   |  11 |   8 |   3 |
+P6   |  35 |  32 |  27 |
+P7   |   7 |   4 |  -1 |
+
+--- Couts marginaux ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |   7 |   0 |   0 |
+P2   |   0 |  43 |   0 |
+P3   |  -4 |   0 |  25 |
+P4   |   1 |   0 |  32 |
+P5   |  39 |  32 |   0 |
+P6   | -30 |   6 |   0 |
+P7   |  43 |   0 |  23 |
+
+==> Aucune arete ameliorante (SOLUTION OPTIMALE)
+
+*** SOLUTION OPTIMALE ATTEINTE ***
+
+
+##########################################################
+##              RESULTAT FINAL OPTIMAL                  ##
+##########################################################
+
+--- PROPOSITION DE TRANSPORT OPTIMALE ---
+     | C1 | C2 | C3 |
+------------------------
+P1   |   0 | 100 |   1 |
+P2   | 100 |   0 |   1 |
+P3   | 100 |   1 |   1 |
+P4   | 100 |   1 |   1 |
+P5   |   1 |   0 | 100 |
+P6   | 100 |   0 |   1 |
+P7   |   0 | 100 |   0 |
+
+>>> COUT MINIMAL TOTAL: 5865 <<<
+##########################################################

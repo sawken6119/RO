@@ -1,0 +1,104 @@
+ Chargement du fichier: problem_3.txt
+========================================================
+
+#################################################
+Probleme de Transport (2 fournisseurs x 2 clients)
+#################################################
+
+--- Matrice des couts unitaires (A) ---
+         |  C1   |  C2   |   Pi  |
+P1     |    30 |    20 |    600 |
+P2     |    10 |    50 |    500 |
+      Cj |   100 |  1000 |
+
+========================================================
+Choisissez l'algorithme pour la proposition initiale:
+  - NO : Nord-Ouest
+  - BH : Balas-Hammer
+Votre choix:BH
+
+========== ALGORITHME : Balas-Hammer ==========
+Penalite ligne P1 : 10 (min1=20, min2=30)
+Penalite ligne P2 : 40 (min1=10, min2=50)
+Penalite colonne C1 : 20 (min1=10, min2=30)
+Penalite colonne C2 : 30 (min1=20, min2=50)
+--> Penalite maximale = 40 (ligne P2)
+Affectation P2 -> C1 : 100
+
+Penalite ligne P1 : 20 (min1=20, min2=-1)
+Penalite ligne P2 : 50 (min1=50, min2=-1)
+Penalite colonne C2 : 30 (min1=20, min2=50)
+--> Penalite maximale = 50 (ligne P2)
+Affectation P2 -> C2 : 400
+
+Penalite ligne P1 : 20 (min1=20, min2=-1)
+Penalite colonne C2 : 20 (min1=20, min2=-1)
+--> Penalite maximale = 20 (ligne P1)
+Affectation P1 -> C2 : 600
+
+
+--- Proposition initiale (Balas-Hammer) ---
+     | C1 | C2 |
+------------------
+P1   |   0 | 600 |
+P2   | 100 | 400 |
+Cout total initial : 33000
+
+
+##########################################################
+## METHODE DU MARCHE-PIED AVEC POTENTIELS              ##
+##########################################################
+
+==========================================================
+                    ITERATION 1
+==========================================================
+
+--- Proposition de transport actuelle ---
+     | C1 | C2 |
+------------------
+P1   |   0 | 600 |
+P2   | 100 | 400 |
+Cout total: 33000
+
+Variables de base: 3 (attendu: 3)
+
+--- Test de connexite (parcours BFS) ---
+Le graphe est CONNEXE.
+
+--- Calcul des potentiels u_i et v_j ---
+
+--- Potentiels ---
+u: u1=0  u2=30
+v: v1=-20  v2=20
+
+--- Table des couts potentiels (u_i + v_j) ---
+
+--- Couts potentiels ---
+     | C1 | C2 |
+------------------
+P1   | -20 |  20 |
+P2   |  10 |  50 |
+
+--- Couts marginaux ---
+     | C1 | C2 |
+------------------
+P1   |  50 |   0 |
+P2   |   0 |   0 |
+
+==> Aucune arete ameliorante (SOLUTION OPTIMALE)
+
+*** SOLUTION OPTIMALE ATTEINTE ***
+
+
+##########################################################
+##              RESULTAT FINAL OPTIMAL                  ##
+##########################################################
+
+--- PROPOSITION DE TRANSPORT OPTIMALE ---
+     | C1 | C2 |
+------------------
+P1   |   0 | 600 |
+P2   | 100 | 400 |
+
+>>> COUT MINIMAL TOTAL: 33000 <<<
+##########################################################
