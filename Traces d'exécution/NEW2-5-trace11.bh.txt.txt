@@ -1,0 +1,756 @@
+========================================================
+Entrez le numero du probleme a traiter (1 a 12):11
+ ERREUR: Indice invalide (doit etre entre 1 et 12).
+Chargement du fichier: problem_11.txt
+========================================================
+
+#################################################
+Probleme de Transport (20 fournisseurs x 10 clients)
+#################################################
+
+--- Matrice des couts unitaires (A) ---
+       |  C1   |  C2   |  C3   |  C4   |  C5   |  C6   |  C7   |  C8   |  C9   |  C10  |   Pi   |
+P1     |     1 |     2 |     3 |     4 |     5 |     6 |     7 |     8 |     9 |    10 |     10 |
+P2     |    11 |    12 |    13 |    14 |    15 |    16 |    17 |    18 |    19 |    20 |     20 |
+P3     |    21 |    22 |    23 |    24 |    25 |    26 |    27 |    28 |    29 |    30 |     30 |
+P4     |    31 |    32 |    33 |    34 |    35 |    36 |    37 |    38 |    39 |    40 |     40 |
+P5     |    41 |    42 |    43 |    44 |    45 |    46 |    47 |    48 |    49 |    50 |     50 |
+P6     |    51 |    52 |    53 |    54 |    55 |    56 |    57 |    58 |    59 |    60 |     60 |
+P7     |    61 |    62 |    63 |    64 |    65 |    66 |    67 |    68 |    69 |    70 |     70 |
+P8     |    71 |    72 |    73 |    74 |    75 |    76 |    77 |    78 |    79 |    80 |     80 |
+P9     |    81 |    82 |    83 |    84 |    85 |    86 |    87 |    88 |    89 |    90 |     90 |
+P10    |    91 |    92 |    93 |    94 |    95 |    96 |    97 |    98 |    99 |   100 |    100 |
+P11    |   101 |   102 |   103 |   104 |   105 |   106 |   107 |   108 |   109 |   110 |    110 |
+P12    |   111 |   112 |   113 |   114 |   115 |   116 |   117 |   118 |   119 |   120 |    120 |
+P13    |   121 |   122 |   123 |   124 |   125 |   126 |   127 |   128 |   129 |   130 |    130 |
+P14    |   131 |   132 |   133 |   134 |   135 |   136 |   137 |   138 |   139 |   140 |    140 |
+P15    |   141 |   142 |   143 |   144 |   145 |   146 |   147 |   148 |   149 |   150 |    150 |
+P16    |   151 |   152 |   153 |   154 |   155 |   156 |   157 |   158 |   159 |   160 |    160 |
+P17    |   161 |   162 |   163 |   164 |   165 |   166 |   167 |   168 |   169 |   170 |    170 |
+P18    |   171 |   172 |   173 |   174 |   175 |   176 |   177 |   178 |   179 |   180 |    180 |
+P19    |   181 |   182 |   183 |   184 |   185 |   186 |   187 |   188 |   189 |   190 |    190 |
+P20    |   191 |   192 |   193 |   194 |   195 |   196 |   197 |   198 |   199 |   200 |    200 |
+Cj     |   120 |   140 |   160 |   180 |   200 |   220 |   240 |   260 |   280 |   300 |
+
+========================================================
+Choisissez l'algorithme pour la proposition initiale:
+  - NO : Nord-Ouest
+  - BH : Balas-Hammer
+Votre choix:BH
+
+========== ALGORITHME : Balas-Hammer ==========
+Penalite ligne P1 : 1 (min1=1, min2=2)
+Penalite ligne P2 : 1 (min1=11, min2=12)
+Penalite ligne P3 : 1 (min1=21, min2=22)
+Penalite ligne P4 : 1 (min1=31, min2=32)
+Penalite ligne P5 : 1 (min1=41, min2=42)
+Penalite ligne P6 : 1 (min1=51, min2=52)
+Penalite ligne P7 : 1 (min1=61, min2=62)
+Penalite ligne P8 : 1 (min1=71, min2=72)
+Penalite ligne P9 : 1 (min1=81, min2=82)
+Penalite ligne P10 : 1 (min1=91, min2=92)
+Penalite ligne P11 : 1 (min1=101, min2=102)
+Penalite ligne P12 : 1 (min1=111, min2=112)
+Penalite ligne P13 : 1 (min1=121, min2=122)
+Penalite ligne P14 : 1 (min1=131, min2=132)
+Penalite ligne P15 : 1 (min1=141, min2=142)
+Penalite ligne P16 : 1 (min1=151, min2=152)
+Penalite ligne P17 : 1 (min1=161, min2=162)
+Penalite ligne P18 : 1 (min1=171, min2=172)
+Penalite ligne P19 : 1 (min1=181, min2=182)
+Penalite ligne P20 : 1 (min1=191, min2=192)
+Penalite colonne C1 : 10 (min1=1, min2=11)
+Penalite colonne C2 : 10 (min1=2, min2=12)
+Penalite colonne C3 : 10 (min1=3, min2=13)
+Penalite colonne C4 : 10 (min1=4, min2=14)
+Penalite colonne C5 : 10 (min1=5, min2=15)
+Penalite colonne C6 : 10 (min1=6, min2=16)
+Penalite colonne C7 : 10 (min1=7, min2=17)
+Penalite colonne C8 : 10 (min1=8, min2=18)
+Penalite colonne C9 : 10 (min1=9, min2=19)
+Penalite colonne C10 : 10 (min1=10, min2=20)
+--> Penalite maximale = 10 (colonne C1)
+Affectation P1 -> C1 : 10
+
+Penalite ligne P2 : 1 (min1=11, min2=12)
+Penalite ligne P3 : 1 (min1=21, min2=22)
+Penalite ligne P4 : 1 (min1=31, min2=32)
+Penalite ligne P5 : 1 (min1=41, min2=42)
+Penalite ligne P6 : 1 (min1=51, min2=52)
+Penalite ligne P7 : 1 (min1=61, min2=62)
+Penalite ligne P8 : 1 (min1=71, min2=72)
+Penalite ligne P9 : 1 (min1=81, min2=82)
+Penalite ligne P10 : 1 (min1=91, min2=92)
+Penalite ligne P11 : 1 (min1=101, min2=102)
+Penalite ligne P12 : 1 (min1=111, min2=112)
+Penalite ligne P13 : 1 (min1=121, min2=122)
+Penalite ligne P14 : 1 (min1=131, min2=132)
+Penalite ligne P15 : 1 (min1=141, min2=142)
+Penalite ligne P16 : 1 (min1=151, min2=152)
+Penalite ligne P17 : 1 (min1=161, min2=162)
+Penalite ligne P18 : 1 (min1=171, min2=172)
+Penalite ligne P19 : 1 (min1=181, min2=182)
+Penalite ligne P20 : 1 (min1=191, min2=192)
+Penalite colonne C1 : 10 (min1=11, min2=21)
+Penalite colonne C2 : 10 (min1=12, min2=22)
+Penalite colonne C3 : 10 (min1=13, min2=23)
+Penalite colonne C4 : 10 (min1=14, min2=24)
+Penalite colonne C5 : 10 (min1=15, min2=25)
+Penalite colonne C6 : 10 (min1=16, min2=26)
+Penalite colonne C7 : 10 (min1=17, min2=27)
+Penalite colonne C8 : 10 (min1=18, min2=28)
+Penalite colonne C9 : 10 (min1=19, min2=29)
+Penalite colonne C10 : 10 (min1=20, min2=30)
+--> Penalite maximale = 10 (colonne C1)
+Affectation P2 -> C1 : 20
+
+Penalite ligne P3 : 1 (min1=21, min2=22)
+Penalite ligne P4 : 1 (min1=31, min2=32)
+Penalite ligne P5 : 1 (min1=41, min2=42)
+Penalite ligne P6 : 1 (min1=51, min2=52)
+Penalite ligne P7 : 1 (min1=61, min2=62)
+Penalite ligne P8 : 1 (min1=71, min2=72)
+Penalite ligne P9 : 1 (min1=81, min2=82)
+Penalite ligne P10 : 1 (min1=91, min2=92)
+Penalite ligne P11 : 1 (min1=101, min2=102)
+Penalite ligne P12 : 1 (min1=111, min2=112)
+Penalite ligne P13 : 1 (min1=121, min2=122)
+Penalite ligne P14 : 1 (min1=131, min2=132)
+Penalite ligne P15 : 1 (min1=141, min2=142)
+Penalite ligne P16 : 1 (min1=151, min2=152)
+Penalite ligne P17 : 1 (min1=161, min2=162)
+Penalite ligne P18 : 1 (min1=171, min2=172)
+Penalite ligne P19 : 1 (min1=181, min2=182)
+Penalite ligne P20 : 1 (min1=191, min2=192)
+Penalite colonne C1 : 10 (min1=21, min2=31)
+Penalite colonne C2 : 10 (min1=22, min2=32)
+Penalite colonne C3 : 10 (min1=23, min2=33)
+Penalite colonne C4 : 10 (min1=24, min2=34)
+Penalite colonne C5 : 10 (min1=25, min2=35)
+Penalite colonne C6 : 10 (min1=26, min2=36)
+Penalite colonne C7 : 10 (min1=27, min2=37)
+Penalite colonne C8 : 10 (min1=28, min2=38)
+Penalite colonne C9 : 10 (min1=29, min2=39)
+Penalite colonne C10 : 10 (min1=30, min2=40)
+--> Penalite maximale = 10 (colonne C1)
+Affectation P3 -> C1 : 30
+
+Penalite ligne P4 : 1 (min1=31, min2=32)
+Penalite ligne P5 : 1 (min1=41, min2=42)
+Penalite ligne P6 : 1 (min1=51, min2=52)
+Penalite ligne P7 : 1 (min1=61, min2=62)
+Penalite ligne P8 : 1 (min1=71, min2=72)
+Penalite ligne P9 : 1 (min1=81, min2=82)
+Penalite ligne P10 : 1 (min1=91, min2=92)
+Penalite ligne P11 : 1 (min1=101, min2=102)
+Penalite ligne P12 : 1 (min1=111, min2=112)
+Penalite ligne P13 : 1 (min1=121, min2=122)
+Penalite ligne P14 : 1 (min1=131, min2=132)
+Penalite ligne P15 : 1 (min1=141, min2=142)
+Penalite ligne P16 : 1 (min1=151, min2=152)
+Penalite ligne P17 : 1 (min1=161, min2=162)
+Penalite ligne P18 : 1 (min1=171, min2=172)
+Penalite ligne P19 : 1 (min1=181, min2=182)
+Penalite ligne P20 : 1 (min1=191, min2=192)
+Penalite colonne C1 : 10 (min1=31, min2=41)
+Penalite colonne C2 : 10 (min1=32, min2=42)
+Penalite colonne C3 : 10 (min1=33, min2=43)
+Penalite colonne C4 : 10 (min1=34, min2=44)
+Penalite colonne C5 : 10 (min1=35, min2=45)
+Penalite colonne C6 : 10 (min1=36, min2=46)
+Penalite colonne C7 : 10 (min1=37, min2=47)
+Penalite colonne C8 : 10 (min1=38, min2=48)
+Penalite colonne C9 : 10 (min1=39, min2=49)
+Penalite colonne C10 : 10 (min1=40, min2=50)
+--> Penalite maximale = 10 (colonne C1)
+Affectation P4 -> C1 : 40
+
+Penalite ligne P5 : 1 (min1=41, min2=42)
+Penalite ligne P6 : 1 (min1=51, min2=52)
+Penalite ligne P7 : 1 (min1=61, min2=62)
+Penalite ligne P8 : 1 (min1=71, min2=72)
+Penalite ligne P9 : 1 (min1=81, min2=82)
+Penalite ligne P10 : 1 (min1=91, min2=92)
+Penalite ligne P11 : 1 (min1=101, min2=102)
+Penalite ligne P12 : 1 (min1=111, min2=112)
+Penalite ligne P13 : 1 (min1=121, min2=122)
+Penalite ligne P14 : 1 (min1=131, min2=132)
+Penalite ligne P15 : 1 (min1=141, min2=142)
+Penalite ligne P16 : 1 (min1=151, min2=152)
+Penalite ligne P17 : 1 (min1=161, min2=162)
+Penalite ligne P18 : 1 (min1=171, min2=172)
+Penalite ligne P19 : 1 (min1=181, min2=182)
+Penalite ligne P20 : 1 (min1=191, min2=192)
+Penalite colonne C1 : 10 (min1=41, min2=51)
+Penalite colonne C2 : 10 (min1=42, min2=52)
+Penalite colonne C3 : 10 (min1=43, min2=53)
+Penalite colonne C4 : 10 (min1=44, min2=54)
+Penalite colonne C5 : 10 (min1=45, min2=55)
+Penalite colonne C6 : 10 (min1=46, min2=56)
+Penalite colonne C7 : 10 (min1=47, min2=57)
+Penalite colonne C8 : 10 (min1=48, min2=58)
+Penalite colonne C9 : 10 (min1=49, min2=59)
+Penalite colonne C10 : 10 (min1=50, min2=60)
+--> Penalite maximale = 10 (colonne C1)
+Affectation P5 -> C1 : 20
+
+Penalite ligne P5 : 1 (min1=42, min2=43)
+Penalite ligne P6 : 1 (min1=52, min2=53)
+Penalite ligne P7 : 1 (min1=62, min2=63)
+Penalite ligne P8 : 1 (min1=72, min2=73)
+Penalite ligne P9 : 1 (min1=82, min2=83)
+Penalite ligne P10 : 1 (min1=92, min2=93)
+Penalite ligne P11 : 1 (min1=102, min2=103)
+Penalite ligne P12 : 1 (min1=112, min2=113)
+Penalite ligne P13 : 1 (min1=122, min2=123)
+Penalite ligne P14 : 1 (min1=132, min2=133)
+Penalite ligne P15 : 1 (min1=142, min2=143)
+Penalite ligne P16 : 1 (min1=152, min2=153)
+Penalite ligne P17 : 1 (min1=162, min2=163)
+Penalite ligne P18 : 1 (min1=172, min2=173)
+Penalite ligne P19 : 1 (min1=182, min2=183)
+Penalite ligne P20 : 1 (min1=192, min2=193)
+Penalite colonne C2 : 10 (min1=42, min2=52)
+Penalite colonne C3 : 10 (min1=43, min2=53)
+Penalite colonne C4 : 10 (min1=44, min2=54)
+Penalite colonne C5 : 10 (min1=45, min2=55)
+Penalite colonne C6 : 10 (min1=46, min2=56)
+Penalite colonne C7 : 10 (min1=47, min2=57)
+Penalite colonne C8 : 10 (min1=48, min2=58)
+Penalite colonne C9 : 10 (min1=49, min2=59)
+Penalite colonne C10 : 10 (min1=50, min2=60)
+--> Penalite maximale = 10 (colonne C2)
+Affectation P5 -> C2 : 30
+
+Penalite ligne P6 : 1 (min1=52, min2=53)
+Penalite ligne P7 : 1 (min1=62, min2=63)
+Penalite ligne P8 : 1 (min1=72, min2=73)
+Penalite ligne P9 : 1 (min1=82, min2=83)
+Penalite ligne P10 : 1 (min1=92, min2=93)
+Penalite ligne P11 : 1 (min1=102, min2=103)
+Penalite ligne P12 : 1 (min1=112, min2=113)
+Penalite ligne P13 : 1 (min1=122, min2=123)
+Penalite ligne P14 : 1 (min1=132, min2=133)
+Penalite ligne P15 : 1 (min1=142, min2=143)
+Penalite ligne P16 : 1 (min1=152, min2=153)
+Penalite ligne P17 : 1 (min1=162, min2=163)
+Penalite ligne P18 : 1 (min1=172, min2=173)
+Penalite ligne P19 : 1 (min1=182, min2=183)
+Penalite ligne P20 : 1 (min1=192, min2=193)
+Penalite colonne C2 : 10 (min1=52, min2=62)
+Penalite colonne C3 : 10 (min1=53, min2=63)
+Penalite colonne C4 : 10 (min1=54, min2=64)
+Penalite colonne C5 : 10 (min1=55, min2=65)
+Penalite colonne C6 : 10 (min1=56, min2=66)
+Penalite colonne C7 : 10 (min1=57, min2=67)
+Penalite colonne C8 : 10 (min1=58, min2=68)
+Penalite colonne C9 : 10 (min1=59, min2=69)
+Penalite colonne C10 : 10 (min1=60, min2=70)
+--> Penalite maximale = 10 (colonne C2)
+Affectation P6 -> C2 : 60
+
+Penalite ligne P7 : 1 (min1=62, min2=63)
+Penalite ligne P8 : 1 (min1=72, min2=73)
+Penalite ligne P9 : 1 (min1=82, min2=83)
+Penalite ligne P10 : 1 (min1=92, min2=93)
+Penalite ligne P11 : 1 (min1=102, min2=103)
+Penalite ligne P12 : 1 (min1=112, min2=113)
+Penalite ligne P13 : 1 (min1=122, min2=123)
+Penalite ligne P14 : 1 (min1=132, min2=133)
+Penalite ligne P15 : 1 (min1=142, min2=143)
+Penalite ligne P16 : 1 (min1=152, min2=153)
+Penalite ligne P17 : 1 (min1=162, min2=163)
+Penalite ligne P18 : 1 (min1=172, min2=173)
+Penalite ligne P19 : 1 (min1=182, min2=183)
+Penalite ligne P20 : 1 (min1=192, min2=193)
+Penalite colonne C2 : 10 (min1=62, min2=72)
+Penalite colonne C3 : 10 (min1=63, min2=73)
+Penalite colonne C4 : 10 (min1=64, min2=74)
+Penalite colonne C5 : 10 (min1=65, min2=75)
+Penalite colonne C6 : 10 (min1=66, min2=76)
+Penalite colonne C7 : 10 (min1=67, min2=77)
+Penalite colonne C8 : 10 (min1=68, min2=78)
+Penalite colonne C9 : 10 (min1=69, min2=79)
+Penalite colonne C10 : 10 (min1=70, min2=80)
+--> Penalite maximale = 10 (colonne C2)
+Affectation P7 -> C2 : 50
+
+Penalite ligne P7 : 1 (min1=63, min2=64)
+Penalite ligne P8 : 1 (min1=73, min2=74)
+Penalite ligne P9 : 1 (min1=83, min2=84)
+Penalite ligne P10 : 1 (min1=93, min2=94)
+Penalite ligne P11 : 1 (min1=103, min2=104)
+Penalite ligne P12 : 1 (min1=113, min2=114)
+Penalite ligne P13 : 1 (min1=123, min2=124)
+Penalite ligne P14 : 1 (min1=133, min2=134)
+Penalite ligne P15 : 1 (min1=143, min2=144)
+Penalite ligne P16 : 1 (min1=153, min2=154)
+Penalite ligne P17 : 1 (min1=163, min2=164)
+Penalite ligne P18 : 1 (min1=173, min2=174)
+Penalite ligne P19 : 1 (min1=183, min2=184)
+Penalite ligne P20 : 1 (min1=193, min2=194)
+Penalite colonne C3 : 10 (min1=63, min2=73)
+Penalite colonne C4 : 10 (min1=64, min2=74)
+Penalite colonne C5 : 10 (min1=65, min2=75)
+Penalite colonne C6 : 10 (min1=66, min2=76)
+Penalite colonne C7 : 10 (min1=67, min2=77)
+Penalite colonne C8 : 10 (min1=68, min2=78)
+Penalite colonne C9 : 10 (min1=69, min2=79)
+Penalite colonne C10 : 10 (min1=70, min2=80)
+--> Penalite maximale = 10 (colonne C3)
+Affectation P7 -> C3 : 20
+
+Penalite ligne P8 : 1 (min1=73, min2=74)
+Penalite ligne P9 : 1 (min1=83, min2=84)
+Penalite ligne P10 : 1 (min1=93, min2=94)
+Penalite ligne P11 : 1 (min1=103, min2=104)
+Penalite ligne P12 : 1 (min1=113, min2=114)
+Penalite ligne P13 : 1 (min1=123, min2=124)
+Penalite ligne P14 : 1 (min1=133, min2=134)
+Penalite ligne P15 : 1 (min1=143, min2=144)
+Penalite ligne P16 : 1 (min1=153, min2=154)
+Penalite ligne P17 : 1 (min1=163, min2=164)
+Penalite ligne P18 : 1 (min1=173, min2=174)
+Penalite ligne P19 : 1 (min1=183, min2=184)
+Penalite ligne P20 : 1 (min1=193, min2=194)
+Penalite colonne C3 : 10 (min1=73, min2=83)
+Penalite colonne C4 : 10 (min1=74, min2=84)
+Penalite colonne C5 : 10 (min1=75, min2=85)
+Penalite colonne C6 : 10 (min1=76, min2=86)
+Penalite colonne C7 : 10 (min1=77, min2=87)
+Penalite colonne C8 : 10 (min1=78, min2=88)
+Penalite colonne C9 : 10 (min1=79, min2=89)
+Penalite colonne C10 : 10 (min1=80, min2=90)
+--> Penalite maximale = 10 (colonne C3)
+Affectation P8 -> C3 : 80
+
+Penalite ligne P9 : 1 (min1=83, min2=84)
+Penalite ligne P10 : 1 (min1=93, min2=94)
+Penalite ligne P11 : 1 (min1=103, min2=104)
+Penalite ligne P12 : 1 (min1=113, min2=114)
+Penalite ligne P13 : 1 (min1=123, min2=124)
+Penalite ligne P14 : 1 (min1=133, min2=134)
+Penalite ligne P15 : 1 (min1=143, min2=144)
+Penalite ligne P16 : 1 (min1=153, min2=154)
+Penalite ligne P17 : 1 (min1=163, min2=164)
+Penalite ligne P18 : 1 (min1=173, min2=174)
+Penalite ligne P19 : 1 (min1=183, min2=184)
+Penalite ligne P20 : 1 (min1=193, min2=194)
+Penalite colonne C3 : 10 (min1=83, min2=93)
+Penalite colonne C4 : 10 (min1=84, min2=94)
+Penalite colonne C5 : 10 (min1=85, min2=95)
+Penalite colonne C6 : 10 (min1=86, min2=96)
+Penalite colonne C7 : 10 (min1=87, min2=97)
+Penalite colonne C8 : 10 (min1=88, min2=98)
+Penalite colonne C9 : 10 (min1=89, min2=99)
+Penalite colonne C10 : 10 (min1=90, min2=100)
+--> Penalite maximale = 10 (colonne C3)
+Affectation P9 -> C3 : 60
+
+Penalite ligne P9 : 1 (min1=84, min2=85)
+Penalite ligne P10 : 1 (min1=94, min2=95)
+Penalite ligne P11 : 1 (min1=104, min2=105)
+Penalite ligne P12 : 1 (min1=114, min2=115)
+Penalite ligne P13 : 1 (min1=124, min2=125)
+Penalite ligne P14 : 1 (min1=134, min2=135)
+Penalite ligne P15 : 1 (min1=144, min2=145)
+Penalite ligne P16 : 1 (min1=154, min2=155)
+Penalite ligne P17 : 1 (min1=164, min2=165)
+Penalite ligne P18 : 1 (min1=174, min2=175)
+Penalite ligne P19 : 1 (min1=184, min2=185)
+Penalite ligne P20 : 1 (min1=194, min2=195)
+Penalite colonne C4 : 10 (min1=84, min2=94)
+Penalite colonne C5 : 10 (min1=85, min2=95)
+Penalite colonne C6 : 10 (min1=86, min2=96)
+Penalite colonne C7 : 10 (min1=87, min2=97)
+Penalite colonne C8 : 10 (min1=88, min2=98)
+Penalite colonne C9 : 10 (min1=89, min2=99)
+Penalite colonne C10 : 10 (min1=90, min2=100)
+--> Penalite maximale = 10 (colonne C4)
+Affectation P9 -> C4 : 30
+
+Penalite ligne P10 : 1 (min1=94, min2=95)
+Penalite ligne P11 : 1 (min1=104, min2=105)
+Penalite ligne P12 : 1 (min1=114, min2=115)
+Penalite ligne P13 : 1 (min1=124, min2=125)
+Penalite ligne P14 : 1 (min1=134, min2=135)
+Penalite ligne P15 : 1 (min1=144, min2=145)
+Penalite ligne P16 : 1 (min1=154, min2=155)
+Penalite ligne P17 : 1 (min1=164, min2=165)
+Penalite ligne P18 : 1 (min1=174, min2=175)
+Penalite ligne P19 : 1 (min1=184, min2=185)
+Penalite ligne P20 : 1 (min1=194, min2=195)
+Penalite colonne C4 : 10 (min1=94, min2=104)
+Penalite colonne C5 : 10 (min1=95, min2=105)
+Penalite colonne C6 : 10 (min1=96, min2=106)
+Penalite colonne C7 : 10 (min1=97, min2=107)
+Penalite colonne C8 : 10 (min1=98, min2=108)
+Penalite colonne C9 : 10 (min1=99, min2=109)
+Penalite colonne C10 : 10 (min1=100, min2=110)
+--> Penalite maximale = 10 (colonne C4)
+Affectation P10 -> C4 : 100
+
+Penalite ligne P11 : 1 (min1=104, min2=105)
+Penalite ligne P12 : 1 (min1=114, min2=115)
+Penalite ligne P13 : 1 (min1=124, min2=125)
+Penalite ligne P14 : 1 (min1=134, min2=135)
+Penalite ligne P15 : 1 (min1=144, min2=145)
+Penalite ligne P16 : 1 (min1=154, min2=155)
+Penalite ligne P17 : 1 (min1=164, min2=165)
+Penalite ligne P18 : 1 (min1=174, min2=175)
+Penalite ligne P19 : 1 (min1=184, min2=185)
+Penalite ligne P20 : 1 (min1=194, min2=195)
+Penalite colonne C4 : 10 (min1=104, min2=114)
+Penalite colonne C5 : 10 (min1=105, min2=115)
+Penalite colonne C6 : 10 (min1=106, min2=116)
+Penalite colonne C7 : 10 (min1=107, min2=117)
+Penalite colonne C8 : 10 (min1=108, min2=118)
+Penalite colonne C9 : 10 (min1=109, min2=119)
+Penalite colonne C10 : 10 (min1=110, min2=120)
+--> Penalite maximale = 10 (colonne C4)
+Affectation P11 -> C4 : 50
+
+Penalite ligne P11 : 1 (min1=105, min2=106)
+Penalite ligne P12 : 1 (min1=115, min2=116)
+Penalite ligne P13 : 1 (min1=125, min2=126)
+Penalite ligne P14 : 1 (min1=135, min2=136)
+Penalite ligne P15 : 1 (min1=145, min2=146)
+Penalite ligne P16 : 1 (min1=155, min2=156)
+Penalite ligne P17 : 1 (min1=165, min2=166)
+Penalite ligne P18 : 1 (min1=175, min2=176)
+Penalite ligne P19 : 1 (min1=185, min2=186)
+Penalite ligne P20 : 1 (min1=195, min2=196)
+Penalite colonne C5 : 10 (min1=105, min2=115)
+Penalite colonne C6 : 10 (min1=106, min2=116)
+Penalite colonne C7 : 10 (min1=107, min2=117)
+Penalite colonne C8 : 10 (min1=108, min2=118)
+Penalite colonne C9 : 10 (min1=109, min2=119)
+Penalite colonne C10 : 10 (min1=110, min2=120)
+--> Penalite maximale = 10 (colonne C5)
+Affectation P11 -> C5 : 60
+
+Penalite ligne P12 : 1 (min1=115, min2=116)
+Penalite ligne P13 : 1 (min1=125, min2=126)
+Penalite ligne P14 : 1 (min1=135, min2=136)
+Penalite ligne P15 : 1 (min1=145, min2=146)
+Penalite ligne P16 : 1 (min1=155, min2=156)
+Penalite ligne P17 : 1 (min1=165, min2=166)
+Penalite ligne P18 : 1 (min1=175, min2=176)
+Penalite ligne P19 : 1 (min1=185, min2=186)
+Penalite ligne P20 : 1 (min1=195, min2=196)
+Penalite colonne C5 : 10 (min1=115, min2=125)
+Penalite colonne C6 : 10 (min1=116, min2=126)
+Penalite colonne C7 : 10 (min1=117, min2=127)
+Penalite colonne C8 : 10 (min1=118, min2=128)
+Penalite colonne C9 : 10 (min1=119, min2=129)
+Penalite colonne C10 : 10 (min1=120, min2=130)
+--> Penalite maximale = 10 (colonne C5)
+Affectation P12 -> C5 : 120
+
+Penalite ligne P13 : 1 (min1=125, min2=126)
+Penalite ligne P14 : 1 (min1=135, min2=136)
+Penalite ligne P15 : 1 (min1=145, min2=146)
+Penalite ligne P16 : 1 (min1=155, min2=156)
+Penalite ligne P17 : 1 (min1=165, min2=166)
+Penalite ligne P18 : 1 (min1=175, min2=176)
+Penalite ligne P19 : 1 (min1=185, min2=186)
+Penalite ligne P20 : 1 (min1=195, min2=196)
+Penalite colonne C5 : 10 (min1=125, min2=135)
+Penalite colonne C6 : 10 (min1=126, min2=136)
+Penalite colonne C7 : 10 (min1=127, min2=137)
+Penalite colonne C8 : 10 (min1=128, min2=138)
+Penalite colonne C9 : 10 (min1=129, min2=139)
+Penalite colonne C10 : 10 (min1=130, min2=140)
+--> Penalite maximale = 10 (colonne C5)
+Affectation P13 -> C5 : 20
+
+Penalite ligne P13 : 1 (min1=126, min2=127)
+Penalite ligne P14 : 1 (min1=136, min2=137)
+Penalite ligne P15 : 1 (min1=146, min2=147)
+Penalite ligne P16 : 1 (min1=156, min2=157)
+Penalite ligne P17 : 1 (min1=166, min2=167)
+Penalite ligne P18 : 1 (min1=176, min2=177)
+Penalite ligne P19 : 1 (min1=186, min2=187)
+Penalite ligne P20 : 1 (min1=196, min2=197)
+Penalite colonne C6 : 10 (min1=126, min2=136)
+Penalite colonne C7 : 10 (min1=127, min2=137)
+Penalite colonne C8 : 10 (min1=128, min2=138)
+Penalite colonne C9 : 10 (min1=129, min2=139)
+Penalite colonne C10 : 10 (min1=130, min2=140)
+--> Penalite maximale = 10 (colonne C6)
+Affectation P13 -> C6 : 110
+
+Penalite ligne P14 : 1 (min1=136, min2=137)
+Penalite ligne P15 : 1 (min1=146, min2=147)
+Penalite ligne P16 : 1 (min1=156, min2=157)
+Penalite ligne P17 : 1 (min1=166, min2=167)
+Penalite ligne P18 : 1 (min1=176, min2=177)
+Penalite ligne P19 : 1 (min1=186, min2=187)
+Penalite ligne P20 : 1 (min1=196, min2=197)
+Penalite colonne C6 : 10 (min1=136, min2=146)
+Penalite colonne C7 : 10 (min1=137, min2=147)
+Penalite colonne C8 : 10 (min1=138, min2=148)
+Penalite colonne C9 : 10 (min1=139, min2=149)
+Penalite colonne C10 : 10 (min1=140, min2=150)
+--> Penalite maximale = 10 (colonne C6)
+Affectation P14 -> C6 : 110
+
+Penalite ligne P14 : 1 (min1=137, min2=138)
+Penalite ligne P15 : 1 (min1=147, min2=148)
+Penalite ligne P16 : 1 (min1=157, min2=158)
+Penalite ligne P17 : 1 (min1=167, min2=168)
+Penalite ligne P18 : 1 (min1=177, min2=178)
+Penalite ligne P19 : 1 (min1=187, min2=188)
+Penalite ligne P20 : 1 (min1=197, min2=198)
+Penalite colonne C7 : 10 (min1=137, min2=147)
+Penalite colonne C8 : 10 (min1=138, min2=148)
+Penalite colonne C9 : 10 (min1=139, min2=149)
+Penalite colonne C10 : 10 (min1=140, min2=150)
+--> Penalite maximale = 10 (colonne C7)
+Affectation P14 -> C7 : 30
+
+Penalite ligne P15 : 1 (min1=147, min2=148)
+Penalite ligne P16 : 1 (min1=157, min2=158)
+Penalite ligne P17 : 1 (min1=167, min2=168)
+Penalite ligne P18 : 1 (min1=177, min2=178)
+Penalite ligne P19 : 1 (min1=187, min2=188)
+Penalite ligne P20 : 1 (min1=197, min2=198)
+Penalite colonne C7 : 10 (min1=147, min2=157)
+Penalite colonne C8 : 10 (min1=148, min2=158)
+Penalite colonne C9 : 10 (min1=149, min2=159)
+Penalite colonne C10 : 10 (min1=150, min2=160)
+--> Penalite maximale = 10 (colonne C7)
+Affectation P15 -> C7 : 150
+
+Penalite ligne P16 : 1 (min1=157, min2=158)
+Penalite ligne P17 : 1 (min1=167, min2=168)
+Penalite ligne P18 : 1 (min1=177, min2=178)
+Penalite ligne P19 : 1 (min1=187, min2=188)
+Penalite ligne P20 : 1 (min1=197, min2=198)
+Penalite colonne C7 : 10 (min1=157, min2=167)
+Penalite colonne C8 : 10 (min1=158, min2=168)
+Penalite colonne C9 : 10 (min1=159, min2=169)
+Penalite colonne C10 : 10 (min1=160, min2=170)
+--> Penalite maximale = 10 (colonne C7)
+Affectation P16 -> C7 : 60
+
+Penalite ligne P16 : 1 (min1=158, min2=159)
+Penalite ligne P17 : 1 (min1=168, min2=169)
+Penalite ligne P18 : 1 (min1=178, min2=179)
+Penalite ligne P19 : 1 (min1=188, min2=189)
+Penalite ligne P20 : 1 (min1=198, min2=199)
+Penalite colonne C8 : 10 (min1=158, min2=168)
+Penalite colonne C9 : 10 (min1=159, min2=169)
+Penalite colonne C10 : 10 (min1=160, min2=170)
+--> Penalite maximale = 10 (colonne C8)
+Affectation P16 -> C8 : 100
+
+Penalite ligne P17 : 1 (min1=168, min2=169)
+Penalite ligne P18 : 1 (min1=178, min2=179)
+Penalite ligne P19 : 1 (min1=188, min2=189)
+Penalite ligne P20 : 1 (min1=198, min2=199)
+Penalite colonne C8 : 10 (min1=168, min2=178)
+Penalite colonne C9 : 10 (min1=169, min2=179)
+Penalite colonne C10 : 10 (min1=170, min2=180)
+--> Penalite maximale = 10 (colonne C8)
+Affectation P17 -> C8 : 160
+
+Penalite ligne P17 : 1 (min1=169, min2=170)
+Penalite ligne P18 : 1 (min1=179, min2=180)
+Penalite ligne P19 : 1 (min1=189, min2=190)
+Penalite ligne P20 : 1 (min1=199, min2=200)
+Penalite colonne C9 : 10 (min1=169, min2=179)
+Penalite colonne C10 : 10 (min1=170, min2=180)
+--> Penalite maximale = 10 (colonne C9)
+Affectation P17 -> C9 : 10
+
+Penalite ligne P18 : 1 (min1=179, min2=180)
+Penalite ligne P19 : 1 (min1=189, min2=190)
+Penalite ligne P20 : 1 (min1=199, min2=200)
+Penalite colonne C9 : 10 (min1=179, min2=189)
+Penalite colonne C10 : 10 (min1=180, min2=190)
+--> Penalite maximale = 10 (colonne C9)
+Affectation P18 -> C9 : 180
+
+Penalite ligne P19 : 1 (min1=189, min2=190)
+Penalite ligne P20 : 1 (min1=199, min2=200)
+Penalite colonne C9 : 10 (min1=189, min2=199)
+Penalite colonne C10 : 10 (min1=190, min2=200)
+--> Penalite maximale = 10 (colonne C9)
+Affectation P19 -> C9 : 90
+
+Penalite ligne P19 : 190 (min1=190, min2=-1)
+Penalite ligne P20 : 200 (min1=200, min2=-1)
+Penalite colonne C10 : 10 (min1=190, min2=200)
+--> Penalite maximale = 200 (ligne P20)
+Affectation P20 -> C10 : 200
+
+Penalite ligne P19 : 190 (min1=190, min2=-1)
+Penalite colonne C10 : 190 (min1=190, min2=-1)
+--> Penalite maximale = 190 (ligne P19)
+Affectation P19 -> C10 : 100
+
+
+--- Proposition initiale (Balas-Hammer) ---
+     | C1  | C2  | C3  | C4  | C5  | C6  | C7  | C8  | C9  | C10 |
+------------------------------------------------------------------
+P1   |  10 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P2   |  20 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P3   |  30 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P4   |  40 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P5   |  20 |  30 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P6   |   0 |  60 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P7   |   0 |  50 |  20 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P8   |   0 |   0 |  80 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P9   |   0 |   0 |  60 |  30 |   0 |   0 |   0 |   0 |   0 |   0 |
+P10  |   0 |   0 |   0 | 100 |   0 |   0 |   0 |   0 |   0 |   0 |
+P11  |   0 |   0 |   0 |  50 |  60 |   0 |   0 |   0 |   0 |   0 |
+P12  |   0 |   0 |   0 |   0 | 120 |   0 |   0 |   0 |   0 |   0 |
+P13  |   0 |   0 |   0 |   0 |  20 | 110 |   0 |   0 |   0 |   0 |
+P14  |   0 |   0 |   0 |   0 |   0 | 110 |  30 |   0 |   0 |   0 |
+P15  |   0 |   0 |   0 |   0 |   0 |   0 | 150 |   0 |   0 |   0 |
+P16  |   0 |   0 |   0 |   0 |   0 |   0 |  60 | 100 |   0 |   0 |
+P17  |   0 |   0 |   0 |   0 |   0 |   0 |   0 | 160 |  10 |   0 |
+P18  |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 | 180 |   0 |
+P19  |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |  90 | 100 |
+P20  |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 | 200 |
+Cout total initial : 279200
+
+
+##########################################################
+## METHODE DU MARCHE-PIED AVEC POTENTIELS ##
+##########################################################
+
+==========================================================
+ ITERATION 1
+==========================================================
+
+--- Proposition de transport actuelle ---
+     | C1  | C2  | C3  | C4  | C5  | C6  | C7  | C8  | C9  | C10 |
+------------------------------------------------------------------
+P1   |  10 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P2   |  20 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P3   |  30 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P4   |  40 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P5   |  20 |  30 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P6   |   0 |  60 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P7   |   0 |  50 |  20 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P8   |   0 |   0 |  80 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P9   |   0 |   0 |  60 |  30 |   0 |   0 |   0 |   0 |   0 |   0 |
+P10  |   0 |   0 |   0 | 100 |   0 |   0 |   0 |   0 |   0 |   0 |
+P11  |   0 |   0 |   0 |  50 |  60 |   0 |   0 |   0 |   0 |   0 |
+P12  |   0 |   0 |   0 |   0 | 120 |   0 |   0 |   0 |   0 |   0 |
+P13  |   0 |   0 |   0 |   0 |  20 | 110 |   0 |   0 |   0 |   0 |
+P14  |   0 |   0 |   0 |   0 |   0 | 110 |  30 |   0 |   0 |   0 |
+P15  |   0 |   0 |   0 |   0 |   0 |   0 | 150 |   0 |   0 |   0 |
+P16  |   0 |   0 |   0 |   0 |   0 |   0 |  60 | 100 |   0 |   0 |
+P17  |   0 |   0 |   0 |   0 |   0 |   0 |   0 | 160 |  10 |   0 |
+P18  |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 | 180 |   0 |
+P19  |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |  90 | 100 |
+P20  |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 | 200 |
+Cout total: 279200
+
+Variables de base: 29 (attendu: 29)
+
+--- Test d'acyclicite (detection de cycle) ---
+Aucun cycle detecte - le graphe est ACYCLIQUE.
+
+--- Test de connexite (parcours BFS) ---
+Le graphe est CONNEXE.
+
+--- Calcul des potentiels u_i et v_j ---
+
+--- Potentiels ---
+u: u1=0  u2=10  u3=20  u4=30  u5=40  u6=50  u7=60  u8=70  u9=80  u10=90  u11=100  u12=110  u13=120  u14=130  u15=140  u1
+6=150  u17=160  u18=170  u19=180  u20=190
+v: v1=1  v2=2  v3=3  v4=4  v5=5  v6=6  v7=7  v8=8  v9=9  v10=10
+
+--- Table des couts potentiels (u_i + v_j) ---
+
+--- Couts potentiels ---
+     | C1  | C2  | C3  | C4  | C5  | C6  | C7  | C8  | C9  | C10 |
+------------------------------------------------------------------
+P1   |   1 |   2 |   3 |   4 |   5 |   6 |   7 |   8 |   9 |  10 |
+P2   |  11 |  12 |  13 |  14 |  15 |  16 |  17 |  18 |  19 |  20 |
+P3   |  21 |  22 |  23 |  24 |  25 |  26 |  27 |  28 |  29 |  30 |
+P4   |  31 |  32 |  33 |  34 |  35 |  36 |  37 |  38 |  39 |  40 |
+P5   |  41 |  42 |  43 |  44 |  45 |  46 |  47 |  48 |  49 |  50 |
+P6   |  51 |  52 |  53 |  54 |  55 |  56 |  57 |  58 |  59 |  60 |
+P7   |  61 |  62 |  63 |  64 |  65 |  66 |  67 |  68 |  69 |  70 |
+P8   |  71 |  72 |  73 |  74 |  75 |  76 |  77 |  78 |  79 |  80 |
+P9   |  81 |  82 |  83 |  84 |  85 |  86 |  87 |  88 |  89 |  90 |
+P10  |  91 |  92 |  93 |  94 |  95 |  96 |  97 |  98 |  99 | 100 |
+P11  | 101 | 102 | 103 | 104 | 105 | 106 | 107 | 108 | 109 | 110 |
+P12  | 111 | 112 | 113 | 114 | 115 | 116 | 117 | 118 | 119 | 120 |
+P13  | 121 | 122 | 123 | 124 | 125 | 126 | 127 | 128 | 129 | 130 |
+P14  | 131 | 132 | 133 | 134 | 135 | 136 | 137 | 138 | 139 | 140 |
+P15  | 141 | 142 | 143 | 144 | 145 | 146 | 147 | 148 | 149 | 150 |
+P16  | 151 | 152 | 153 | 154 | 155 | 156 | 157 | 158 | 159 | 160 |
+P17  | 161 | 162 | 163 | 164 | 165 | 166 | 167 | 168 | 169 | 170 |
+P18  | 171 | 172 | 173 | 174 | 175 | 176 | 177 | 178 | 179 | 180 |
+P19  | 181 | 182 | 183 | 184 | 185 | 186 | 187 | 188 | 189 | 190 |
+P20  | 191 | 192 | 193 | 194 | 195 | 196 | 197 | 198 | 199 | 200 |
+
+--- Couts marginaux ---
+     | C1  | C2  | C3  | C4  | C5  | C6  | C7  | C8  | C9  | C10 |
+------------------------------------------------------------------
+P1   |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P2   |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P3   |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P4   |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P5   |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P6   |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P7   |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P8   |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P9   |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P10  |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P11  |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P12  |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P13  |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P14  |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P15  |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P16  |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P17  |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P18  |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P19  |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P20  |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+
+==> Aucune arete ameliorante (SOLUTION OPTIMALE)
+
+*** SOLUTION OPTIMALE ATTEINTE ***
+
+
+##########################################################
+##              RESULTAT FINAL OPTIMAL                  ##
+##########################################################
+
+--- PROPOSITION DE TRANSPORT OPTIMALE ---
+     | C1  | C2  | C3  | C4  | C5  | C6  | C7  | C8  | C9  | C10 |
+------------------------------------------------------------------
+P1   |  10 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P2   |  20 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P3   |  30 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P4   |  40 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P5   |  20 |  30 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P6   |   0 |  60 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P7   |   0 |  50 |  20 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P8   |   0 |   0 |  80 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |
+P9   |   0 |   0 |  60 |  30 |   0 |   0 |   0 |   0 |   0 |   0 |
+P10  |   0 |   0 |   0 | 100 |   0 |   0 |   0 |   0 |   0 |   0 |
+P11  |   0 |   0 |   0 |  50 |  60 |   0 |   0 |   0 |   0 |   0 |
+P12  |   0 |   0 |   0 |   0 | 120 |   0 |   0 |   0 |   0 |   0 |
+P13  |   0 |   0 |   0 |   0 |  20 | 110 |   0 |   0 |   0 |   0 |
+P14  |   0 |   0 |   0 |   0 |   0 | 110 |  30 |   0 |   0 |   0 |
+P15  |   0 |   0 |   0 |   0 |   0 |   0 | 150 |   0 |   0 |   0 |
+P16  |   0 |   0 |   0 |   0 |   0 |   0 |  60 | 100 |   0 |   0 |
+P17  |   0 |   0 |   0 |   0 |   0 |   0 |   0 | 160 |  10 |   0 |
+P18  |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 | 180 |   0 |
+P19  |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |  90 | 100 |
+P20  |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 |   0 | 200 |
+
+>>> COUT MINIMAL TOTAL: 279200 <<<
+##########################################################
+TEMPS D'EXECUTION DE L'ALGORITHME (NORD-OUEST ou BALLAS-HAMMER): 0.773000
+TEMPS D'EXECUTION DU MARCHE PIED : 0.258000
+
+========================================================

@@ -1,0 +1,157 @@
+========================================================
+   PROJET DE RECHERCHE OPERATIONNELLE - EFREI
+   Resolution du Probleme de Transport
+   Methode du Marche-Pied avec Potentiels
+========================================================
+
+========================================================
+Entrez le numero du probleme a traiter (1 a 12):4
+ ERREUR: Indice invalide (doit etre entre 1 et 12).
+Chargement du fichier: problem_4.txt
+========================================================
+
+#################################################
+Probleme de Transport (2 fournisseurs x 2 clients)
+#################################################
+
+--- Matrice des couts unitaires (A) ---
+       |  C1   |  C2   |   Pi   |
+P1     |    30 |     1 |    600 |
+P2     |     1 |    30 |    500 |
+Cj     |   100 |  1000 |
+
+========================================================
+Choisissez l'algorithme pour la proposition initiale:
+  - NO : Nord-Ouest
+  - BH : Balas-Hammer
+Votre choix:NO
+
+========== ALGORITHME : Coin Nord-Ouest ==========
+Affectation P1 -> C1 : 100 (reste P1=500, C1=0)
+Affectation P1 -> C2 : 500 (reste P1=0, C2=500)
+Affectation P2 -> C2 : 500 (reste P2=0, C2=0)
+
+--- Proposition initiale (Nord-Ouest) ---
+     | C1  | C2  |
+------------------
+P1   | 100 | 500 |
+P2   |   0 | 500 |
+
+Cout total initial : 18500
+
+
+##########################################################
+## METHODE DU MARCHE-PIED AVEC POTENTIELS ##
+##########################################################
+
+==========================================================
+ ITERATION 1
+==========================================================
+
+--- Proposition de transport actuelle ---
+     | C1  | C2  |
+------------------
+P1   | 100 | 500 |
+P2   |   0 | 500 |
+Cout total: 18500
+
+Variables de base: 3 (attendu: 3)
+
+--- Test d'acyclicite (detection de cycle) ---
+Aucun cycle detecte - le graphe est ACYCLIQUE.
+
+--- Test de connexite (parcours BFS) ---
+Le graphe est CONNEXE.
+
+--- Calcul des potentiels u_i et v_j ---
+
+--- Potentiels ---
+u: u1=0  u2=29
+v: v1=30  v2=1
+
+--- Table des couts potentiels (u_i + v_j) ---
+
+--- Couts potentiels ---
+     | C1  | C2  |
+------------------
+P1   |  30 |   1 |
+P2   |  59 |  30 |
+
+--- Couts marginaux ---
+     | C1  | C2  |
+------------------
+P1   |   0 |   0 |
+P2   | -58 |   0 |
+
+==> Arete ameliorante trouvee: P2->C1 (cout marginal = -58)
+Ajout de l'arete ameliorante P2->C1
+Cycle detecte : P2->C1 -> P2->C1
+
+--- Maximisation du transport sur le cycle ---
+Arete P2->C1 : b[2][1] = 1
+Delta = 1
+Arete supprimee : P2->C1
+
+--- Fin iteration 1 ---
+
+==========================================================
+ ITERATION 2
+==========================================================
+
+--- Proposition de transport actuelle ---
+     | C1  | C2  |
+------------------
+P1   | 100 | 500 |
+P2   |   1 | 500 |
+Cout total: 18501
+
+Variables de base: 4 (attendu: 3)
+
+--- Test d'acyclicite (detection de cycle) ---
+CYCLE DETECTE dans le graphe!
+
+>>> Elimination du cycle detecte...
+Impossible de maximiser (delta=0)
+
+--- Test de connexite (parcours BFS) ---
+Le graphe est CONNEXE.
+
+--- Calcul des potentiels u_i et v_j ---
+
+--- Potentiels ---
+u: u1=0  u2=-29
+v: v1=30  v2=1
+
+--- Table des couts potentiels (u_i + v_j) ---
+
+--- Couts potentiels ---
+     | C1  | C2  |
+------------------
+P1   |  30 |   1 |
+P2   |   1 | -28 |
+
+--- Couts marginaux ---
+     | C1  | C2  |
+------------------
+P1   |   0 |   0 |
+P2   |   0 |  58 |
+
+==> Aucune arete ameliorante (SOLUTION OPTIMALE)
+
+*** SOLUTION OPTIMALE ATTEINTE ***
+
+
+##########################################################
+##              RESULTAT FINAL OPTIMAL                  ##
+##########################################################
+
+--- PROPOSITION DE TRANSPORT OPTIMALE ---
+     | C1  | C2  |
+------------------
+P1   | 100 | 500 |
+P2   |   1 | 500 |
+
+>>> COUT MINIMAL TOTAL: 18501 <<<
+##########################################################
+TEMPS D'EXECUTION DE L'ALGORITHME (NORD-OUEST ou BALLAS-HAMMER): 0.012000
+TEMPS D'EXECUTION DU MARCHE PIED : 0.086000

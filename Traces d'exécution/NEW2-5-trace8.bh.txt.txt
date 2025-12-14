@@ -1,0 +1,159 @@
+========================================================
+Entrez le numero du probleme a traiter (1 a 12):8
+ ERREUR: Indice invalide (doit etre entre 1 et 12).
+Chargement du fichier: problem_8.txt
+========================================================
+
+#################################################
+Probleme de Transport (5 fournisseurs x 2 clients)
+#################################################
+
+--- Matrice des couts unitaires (A) ---
+       |  C1   |  C2   |   Pi   |
+P1     |    50 |    20 |    100 |
+P2     |    10 |    50 |    200 |
+P3     |    55 |    40 |    100 |
+P4     |    35 |    45 |    200 |
+P5     |    12 |     8 |    200 |
+Cj     |   300 |   500 |
+
+========================================================
+Choisissez l'algorithme pour la proposition initiale:
+  - NO : Nord-Ouest
+  - BH : Balas-Hammer
+Votre choix:BH
+
+========== ALGORITHME : Balas-Hammer ==========
+Penalite ligne P1 : 30 (min1=20, min2=50)
+Penalite ligne P2 : 40 (min1=10, min2=50)
+Penalite ligne P3 : 15 (min1=40, min2=55)
+Penalite ligne P4 : 10 (min1=35, min2=45)
+Penalite ligne P5 : 4 (min1=8, min2=12)
+Penalite colonne C1 : 2 (min1=10, min2=12)
+Penalite colonne C2 : 12 (min1=8, min2=20)
+--> Penalite maximale = 40 (ligne P2)
+Affectation P2 -> C1 : 200
+
+Penalite ligne P1 : 30 (min1=20, min2=50)
+Penalite ligne P3 : 15 (min1=40, min2=55)
+Penalite ligne P4 : 10 (min1=35, min2=45)
+Penalite ligne P5 : 4 (min1=8, min2=12)
+Penalite colonne C1 : 23 (min1=12, min2=35)
+Penalite colonne C2 : 12 (min1=8, min2=20)
+--> Penalite maximale = 30 (ligne P1)
+Affectation P1 -> C2 : 100
+
+Penalite ligne P3 : 15 (min1=40, min2=55)
+Penalite ligne P4 : 10 (min1=35, min2=45)
+Penalite ligne P5 : 4 (min1=8, min2=12)
+Penalite colonne C1 : 23 (min1=12, min2=35)
+Penalite colonne C2 : 32 (min1=8, min2=40)
+--> Penalite maximale = 32 (colonne C2)
+Affectation P5 -> C2 : 200
+
+Penalite ligne P3 : 15 (min1=40, min2=55)
+Penalite ligne P4 : 10 (min1=35, min2=45)
+Penalite colonne C1 : 20 (min1=35, min2=55)
+Penalite colonne C2 : 5 (min1=40, min2=45)
+--> Penalite maximale = 20 (colonne C1)
+Affectation P4 -> C1 : 100
+
+Penalite ligne P3 : 40 (min1=40, min2=-1)
+Penalite ligne P4 : 45 (min1=45, min2=-1)
+Penalite colonne C2 : 5 (min1=40, min2=45)
+--> Penalite maximale = 45 (ligne P4)
+Affectation P4 -> C2 : 100
+
+Penalite ligne P3 : 40 (min1=40, min2=-1)
+Penalite colonne C2 : 40 (min1=40, min2=-1)
+--> Penalite maximale = 40 (ligne P3)
+Affectation P3 -> C2 : 100
+
+
+--- Proposition initiale (Balas-Hammer) ---
+     | C1  | C2  |
+------------------
+P1   |   0 | 100 |
+P2   | 200 |   0 |
+P3   |   0 | 100 |
+P4   | 100 | 100 |
+P5   |   0 | 200 |
+Cout total initial : 17600
+
+
+##########################################################
+## METHODE DU MARCHE-PIED AVEC POTENTIELS ##
+##########################################################
+
+==========================================================
+ ITERATION 1
+==========================================================
+
+--- Proposition de transport actuelle ---
+     | C1  | C2  |
+------------------
+P1   |   0 | 100 |
+P2   | 200 |   0 |
+P3   |   0 | 100 |
+P4   | 100 | 100 |
+P5   |   0 | 200 |
+Cout total: 17600
+
+Variables de base: 6 (attendu: 6)
+
+--- Test d'acyclicite (detection de cycle) ---
+Aucun cycle detecte - le graphe est ACYCLIQUE.
+
+--- Test de connexite (parcours BFS) ---
+Le graphe est CONNEXE.
+
+--- Calcul des potentiels u_i et v_j ---
+
+--- Potentiels ---
+u: u1=0  u2=0  u3=20  u4=25  u5=-12
+v: v1=10  v2=20
+
+--- Table des couts potentiels (u_i + v_j) ---
+
+--- Couts potentiels ---
+     | C1  | C2  |
+------------------
+P1   |  10 |  20 |
+P2   |  10 |  20 |
+P3   |  30 |  40 |
+P4   |  35 |  45 |
+P5   |  -2 |   8 |
+
+--- Couts marginaux ---
+     | C1  | C2  |
+------------------
+P1   |  40 |   0 |
+P2   |   0 |  30 |
+P3   |  25 |   0 |
+P4   |   0 |   0 |
+P5   |  14 |   0 |
+
+==> Aucune arete ameliorante (SOLUTION OPTIMALE)
+
+*** SOLUTION OPTIMALE ATTEINTE ***
+
+
+##########################################################
+##              RESULTAT FINAL OPTIMAL                  ##
+##########################################################
+
+--- PROPOSITION DE TRANSPORT OPTIMALE ---
+     | C1  | C2  |
+------------------
+P1   |   0 | 100 |
+P2   | 200 |   0 |
+P3   |   0 | 100 |
+P4   | 100 | 100 |
+P5   |   0 | 200 |
+
+>>> COUT MINIMAL TOTAL: 17600 <<<
+##########################################################
+TEMPS D'EXECUTION DE L'ALGORITHME (NORD-OUEST ou BALLAS-HAMMER): 0.064000
+TEMPS D'EXECUTION DU MARCHE PIED : 0.059000
+
+========================================================

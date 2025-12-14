@@ -1,0 +1,137 @@
+========================================================
+Entrez le numero du probleme a traiter (1 a 12):5
+ ERREUR: Indice invalide (doit etre entre 1 et 12).
+Chargement du fichier: problem_5.txt
+========================================================
+
+#################################################
+Probleme de Transport (3 fournisseurs x 3 clients)
+#################################################
+
+--- Matrice des couts unitaires (A) ---
+       |  C1   |  C2   |  C3   |   Pi   |
+P1     |     5 |     7 |     8 |     25 |
+P2     |     6 |     8 |     5 |     25 |
+P3     |     6 |     7 |     7 |     25 |
+Cj     |    35 |    20 |    20 |
+
+========================================================
+Choisissez l'algorithme pour la proposition initiale:
+  - NO : Nord-Ouest
+  - BH : Balas-Hammer
+Votre choix:BH
+
+========== ALGORITHME : Balas-Hammer ==========
+Penalite ligne P1 : 2 (min1=5, min2=7)
+Penalite ligne P2 : 1 (min1=5, min2=6)
+Penalite ligne P3 : 1 (min1=6, min2=7)
+Penalite colonne C1 : 1 (min1=5, min2=6)
+Penalite colonne C2 : 0 (min1=7, min2=7)
+Penalite colonne C3 : 2 (min1=5, min2=7)
+--> Penalite maximale = 2 (ligne P1)
+Affectation P1 -> C1 : 25
+
+Penalite ligne P2 : 1 (min1=5, min2=6)
+Penalite ligne P3 : 1 (min1=6, min2=7)
+Penalite colonne C1 : 0 (min1=6, min2=6)
+Penalite colonne C2 : 1 (min1=7, min2=8)
+Penalite colonne C3 : 2 (min1=5, min2=7)
+--> Penalite maximale = 2 (colonne C3)
+Affectation P2 -> C3 : 20
+
+Penalite ligne P2 : 2 (min1=6, min2=8)
+Penalite ligne P3 : 1 (min1=6, min2=7)
+Penalite colonne C1 : 0 (min1=6, min2=6)
+Penalite colonne C2 : 1 (min1=7, min2=8)
+--> Penalite maximale = 2 (ligne P2)
+Affectation P2 -> C1 : 5
+
+Penalite ligne P3 : 1 (min1=6, min2=7)
+Penalite colonne C1 : 6 (min1=6, min2=-1)
+Penalite colonne C2 : 7 (min1=7, min2=-1)
+--> Penalite maximale = 7 (colonne C2)
+Affectation P3 -> C2 : 20
+
+Penalite ligne P3 : 6 (min1=6, min2=-1)
+Penalite colonne C1 : 6 (min1=6, min2=-1)
+--> Penalite maximale = 6 (ligne P3)
+Affectation P3 -> C1 : 5
+
+
+--- Proposition initiale (Balas-Hammer) ---
+     | C1  | C2  | C3  |
+------------------------
+P1   |  25 |   0 |   0 |
+P2   |   5 |   0 |  20 |
+P3   |   5 |  20 |   0 |
+Cout total initial : 425
+
+
+##########################################################
+## METHODE DU MARCHE-PIED AVEC POTENTIELS ##
+##########################################################
+
+==========================================================
+ ITERATION 1
+==========================================================
+
+--- Proposition de transport actuelle ---
+     | C1  | C2  | C3  |
+------------------------
+P1   |  25 |   0 |   0 |
+P2   |   5 |   0 |  20 |
+P3   |   5 |  20 |   0 |
+Cout total: 425
+
+Variables de base: 5 (attendu: 5)
+
+--- Test d'acyclicite (detection de cycle) ---
+Aucun cycle detecte - le graphe est ACYCLIQUE.
+
+--- Test de connexite (parcours BFS) ---
+Le graphe est CONNEXE.
+
+--- Calcul des potentiels u_i et v_j ---
+
+--- Potentiels ---
+u: u1=0  u2=1  u3=1
+v: v1=5  v2=6  v3=4
+
+--- Table des couts potentiels (u_i + v_j) ---
+
+--- Couts potentiels ---
+     | C1  | C2  | C3  |
+------------------------
+P1   |   5 |   6 |   4 |
+P2   |   6 |   7 |   5 |
+P3   |   6 |   7 |   5 |
+
+--- Couts marginaux ---
+     | C1  | C2  | C3  |
+------------------------
+P1   |   0 |   1 |   4 |
+P2   |   0 |   1 |   0 |
+P3   |   0 |   0 |   2 |
+
+==> Aucune arete ameliorante (SOLUTION OPTIMALE)
+
+*** SOLUTION OPTIMALE ATTEINTE ***
+
+
+##########################################################
+##              RESULTAT FINAL OPTIMAL                  ##
+##########################################################
+
+--- PROPOSITION DE TRANSPORT OPTIMALE ---
+     | C1  | C2  | C3  |
+------------------------
+P1   |  25 |   0 |   0 |
+P2   |   5 |   0 |  20 |
+P3   |   5 |  20 |   0 |
+
+>>> COUT MINIMAL TOTAL: 425 <<<
+##########################################################
+TEMPS D'EXECUTION DE L'ALGORITHME (NORD-OUEST ou BALLAS-HAMMER): 0.049000
+TEMPS D'EXECUTION DU MARCHE PIED : 0.054000
+
+========================================================

@@ -5,22 +5,20 @@
 ========================================================
 
 ========================================================
-Entrez le numero du probleme a traiter (1 a 12):7
+Entrez le numero du probleme a traiter (1 a 12):1
  ERREUR: Indice invalide (doit etre entre 1 et 12).
-Chargement du fichier: problem_7.txt
+Chargement du fichier: problem_1.txt
 ========================================================
 
 #################################################
-Probleme de Transport (4 fournisseurs x 2 clients)
+Probleme de Transport (2 fournisseurs x 2 clients)
 #################################################
 
 --- Matrice des couts unitaires (A) ---
        |  C1   |  C2   |   Pi   |
-P1     |    50 |    20 |    100 |
-P2     |    10 |    50 |    200 |
-P3     |    50 |    40 |    100 |
-P4     |    45 |    35 |    200 |
-Cj     |   300 |   300 |
+P1     |    30 |    20 |    100 |
+P2     |    10 |    50 |    100 |
+Cj     |   100 |   100 |
 
 ========================================================
 Choisissez l'algorithme pour la proposition initiale:
@@ -29,20 +27,16 @@ Choisissez l'algorithme pour la proposition initiale:
 Votre choix:NO
 
 ========== ALGORITHME : Coin Nord-Ouest ==========
-Affectation P1 -> C1 : 100 (reste P1=0, C1=200)
-Affectation P2 -> C1 : 200 (reste P2=0, C1=0)
-Affectation P3 -> C2 : 100 (reste P3=0, C2=200)
-Affectation P4 -> C2 : 200 (reste P4=0, C2=0)
+Affectation P1 -> C1 : 100 (reste P1=0, C1=0)
+Affectation P2 -> C2 : 100 (reste P2=0, C2=0)
 
 --- Proposition initiale (Nord-Ouest) ---
      | C1  | C2  |
 ------------------
 P1   | 100 |   0 |
-P2   | 200 |   0 |
-P3   |   0 | 100 |
-P4   |   0 | 200 |
+P2   |   0 | 100 |
 
-Cout total initial : 18000
+Cout total initial : 8000
 
 
 ##########################################################
@@ -57,12 +51,10 @@ Cout total initial : 18000
      | C1  | C2  |
 ------------------
 P1   | 100 |   0 |
-P2   | 200 |   0 |
-P3   |   0 | 100 |
-P4   |   0 | 200 |
-Cout total: 18000
+P2   |   0 | 100 |
+Cout total: 8000
 
-Variables de base: 4 (attendu: 5)
+Variables de base: 2 (attendu: 3)
 La proposition est DEGENEREE!
 
 --- Test d'acyclicite (detection de cycle) ---
@@ -70,65 +62,57 @@ Aucun cycle detecte - le graphe est ACYCLIQUE.
 
 --- Test de connexite (parcours BFS) ---
 Le graphe est NON CONNEXE!
-Noeuds actifs: 6, Noeuds visites: 3
+Noeuds actifs: 4, Noeuds visites: 2
 Composantes connexes:
-  Composante 1: P3 (et autres)
-  Composante 2: P4 (et autres)
-  Composante 3: C2 (et autres)
+  Composante 1: P2 (et autres)
+  Composante 2: C2 (et autres)
 
 --- Modification pour rendre le graphe connexe ---
-Variables de base actuelles: 4, attendues: 5
-Ajout arete P1->C2 (cout=20)
+Variables de base actuelles: 2, attendues: 3
+Ajout arete P2->C1 (cout=10)
 
 --- Test de connexite (parcours BFS) ---
 Le graphe est NON CONNEXE!
-Noeuds actifs: 6, Noeuds visites: 3
+Noeuds actifs: 4, Noeuds visites: 2
 Composantes connexes:
-  Composante 1: P3 (et autres)
-  Composante 2: P4 (et autres)
-  Composante 3: C2 (et autres)
+  Composante 1: P2 (et autres)
+  Composante 2: C2 (et autres)
 Total aretes ajoutees: 1
 
 --- Proposition apres ajout aretes ---
      | C1  | C2  |
 ------------------
 P1   | 100 |   0 |
-P2   | 200 |   0 |
-P3   |   0 | 100 |
-P4   |   0 | 200 |
+P2   |   0 | 100 |
 
 --- Calcul des potentiels u_i et v_j ---
 
 --- Potentiels ---
-u: u1=0  u2=-40  u3=1000000  u4=1000000
-v: v1=50  v2=1000000
+u: u1=0  u2=1000000
+v: v1=30  v2=1000000
 
 --- Table des couts potentiels (u_i + v_j) ---
 
 --- Couts potentiels ---
          | C1      | C2      |
 ------------------------------
-P1       |      50 | 1000000 |
-P2       |      10 |  999960 |
-P3       | 1000050 | 2000000 |
-P4       | 1000050 | 2000000 |
+P1       |      30 | 1000000 |
+P2       | 1000030 | 2000000 |
 
 --- Couts marginaux ---
          | C1      | C2      |
 ------------------------------
 P1       |       0 | -999980 |
-P2       |       0 | -999910 |
-P3       |-1000000 |-1999960 |
-P4       |-1000005 |-1999965 |
+P2       |-1000020 |-1999950 |
 
-==> Arete ameliorante trouvee: P4->C1 (cout marginal = -1000005)
-Ajout de l'arete ameliorante P4->C1
-Cycle detecte : P4->C1 -> P4->C1
+==> Arete ameliorante trouvee: P2->C1 (cout marginal = -1000020)
+Ajout de l'arete ameliorante P2->C1
+Cycle detecte : P2->C1 -> P2->C1
 
 --- Maximisation du transport sur le cycle ---
-Arete P4->C1 : b[4][1] = 1
+Arete P2->C1 : b[2][1] = 1
 Delta = 1
-Arete supprimee : P4->C1
+Arete supprimee : P2->C1
 
 --- Fin iteration 1 ---
 
@@ -140,12 +124,10 @@ Arete supprimee : P4->C1
      | C1  | C2  |
 ------------------
 P1   | 100 |   0 |
-P2   | 200 |   0 |
-P3   |   0 | 100 |
-P4   |   1 | 200 |
-Cout total: 18045
+P2   |   1 | 100 |
+Cout total: 8010
 
-Variables de base: 5 (attendu: 5)
+Variables de base: 3 (attendu: 3)
 
 --- Test d'acyclicite (detection de cycle) ---
 Aucun cycle detecte - le graphe est ACYCLIQUE.
@@ -156,28 +138,24 @@ Le graphe est CONNEXE.
 --- Calcul des potentiels u_i et v_j ---
 
 --- Potentiels ---
-u: u1=0  u2=-40  u3=0  u4=-5
-v: v1=50  v2=40
+u: u1=0  u2=-20
+v: v1=30  v2=70
 
 --- Table des couts potentiels (u_i + v_j) ---
 
 --- Couts potentiels ---
      | C1  | C2  |
 ------------------
-P1   |  50 |  40 |
-P2   |  10 |   0 |
-P3   |  50 |  40 |
-P4   |  45 |  35 |
+P1   |  30 |  70 |
+P2   |  10 |  50 |
 
 --- Couts marginaux ---
      | C1  | C2  |
 ------------------
-P1   |   0 | -20 |
-P2   |   0 |  50 |
-P3   |   0 |   0 |
-P4   |   0 |   0 |
+P1   |   0 | -50 |
+P2   |   0 |   0 |
 
-==> Arete ameliorante trouvee: P1->C2 (cout marginal = -20)
+==> Arete ameliorante trouvee: P1->C2 (cout marginal = -50)
 Ajout de l'arete ameliorante P1->C2
 Cycle detecte : P1->C2 -> P1->C2
 
@@ -196,12 +174,10 @@ Arete supprimee : P1->C2
      | C1  | C2  |
 ------------------
 P1   | 100 |   1 |
-P2   | 200 |   0 |
-P3   |   0 | 100 |
-P4   |   1 | 200 |
-Cout total: 18065
+P2   |   1 | 100 |
+Cout total: 8030
 
-Variables de base: 6 (attendu: 5)
+Variables de base: 4 (attendu: 3)
 
 --- Test d'acyclicite (detection de cycle) ---
 CYCLE DETECTE dans le graphe!
@@ -215,85 +191,22 @@ Le graphe est CONNEXE.
 --- Calcul des potentiels u_i et v_j ---
 
 --- Potentiels ---
-u: u1=0  u2=-40  u3=20  u4=-5
-v: v1=50  v2=20
+u: u1=0  u2=-20
+v: v1=30  v2=20
 
 --- Table des couts potentiels (u_i + v_j) ---
 
 --- Couts potentiels ---
      | C1  | C2  |
 ------------------
-P1   |  50 |  20 |
-P2   |  10 | -20 |
-P3   |  70 |  40 |
-P4   |  45 |  15 |
+P1   |  30 |  20 |
+P2   |  10 |   0 |
 
 --- Couts marginaux ---
      | C1  | C2  |
 ------------------
 P1   |   0 |   0 |
-P2   |   0 |  70 |
-P3   | -20 |   0 |
-P4   |   0 |  20 |
-
-==> Arete ameliorante trouvee: P3->C1 (cout marginal = -20)
-Ajout de l'arete ameliorante P3->C1
-Cycle detecte : P3->C1 -> P3->C1
-
---- Maximisation du transport sur le cycle ---
-Arete P3->C1 : b[3][1] = 1
-Delta = 1
-Arete supprimee : P3->C1
-
---- Fin iteration 3 ---
-
-==========================================================
- ITERATION 4
-==========================================================
-
---- Proposition de transport actuelle ---
-     | C1  | C2  |
-------------------
-P1   | 100 |   1 |
-P2   | 200 |   0 |
-P3   |   1 | 100 |
-P4   |   1 | 200 |
-Cout total: 18115
-
-Variables de base: 7 (attendu: 5)
-
---- Test d'acyclicite (detection de cycle) ---
-CYCLE DETECTE dans le graphe!
-
->>> Elimination du cycle detecte...
-Impossible de maximiser (delta=0)
-
---- Test de connexite (parcours BFS) ---
-Le graphe est CONNEXE.
-
---- Calcul des potentiels u_i et v_j ---
-
---- Potentiels ---
-u: u1=0  u2=-40  u3=0  u4=-5
-v: v1=50  v2=20
-
---- Table des couts potentiels (u_i + v_j) ---
-
---- Couts potentiels ---
-     | C1  | C2  |
-------------------
-P1   |  50 |  20 |
-P2   |  10 | -20 |
-P3   |  50 |  20 |
-P4   |  45 |  15 |
-
---- Couts marginaux ---
-     | C1  | C2  |
-------------------
-P1   |   0 |   0 |
-P2   |   0 |  70 |
-P3   |   0 |  20 |
-P4   |   0 |  20 |
+P2   |   0 |  50 |
 
 ==> Aucune arete ameliorante (SOLUTION OPTIMALE)
 
@@ -308,13 +221,9 @@ P4   |   0 |  20 |
      | C1  | C2  |
 ------------------
 P1   | 100 |   1 |
-P2   | 200 |   0 |
-P3   |   1 | 100 |
-P4   |   1 | 200 |
+P2   |   1 | 100 |
 
->>> COUT MINIMAL TOTAL: 18115 <<<
+>>> COUT MINIMAL TOTAL: 8030 <<<
 ##########################################################
-TEMPS D'EXECUTION DE L'ALGORITHME (NORD-OUEST ou BALLAS-HAMMER): 0.016000
-TEMPS D'EXECUTION DU MARCHE PIED : 0.209000
-
-========================================================
+TEMPS D'EXECUTION DE L'ALGORITHME (NORD-OUEST ou BALLAS-HAMMER): 0.014000
+TEMPS D'EXECUTION DU MARCHE PIED : 0.141000
