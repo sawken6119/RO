@@ -2,12 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #define INF 1000000
 
-// ==========================================================
 // INITIALISATION ET LIBERATION
-// ==========================================================
 
 void initialize_problem_matrices(TransportProblem* p) {
     int n = p->n_suppliers;
@@ -60,9 +59,7 @@ void free_problem(TransportProblem* p) {
     free(p->u_potentials); free(p->v_potentials);
 }
 
-// ==========================================================
 // LECTURE ET AFFICHAGE
-// ==========================================================
 
 int read_data_from_file(const char* filename, TransportProblem* p) {
     FILE* file = fopen(filename, "r");
@@ -183,9 +180,7 @@ void display_marginal_costs_table(const TransportProblem* p) {
     display_table("Couts marginaux", p->n_suppliers, p->m_clients, p->marginal_costs);
 }
 
-// ==========================================================
 // ALGORITHMES INITIAUX
-// ==========================================================
 
 long long calculate_total_cost(const TransportProblem* p) {
     long long cost = 0;
@@ -346,9 +341,7 @@ void balas_hammer(TransportProblem* p) {
     printf("Cout total initial : %lld\n", p->total_cost);
 }
 
-// ==========================================================
 // UTILITAIRES CYCLE
-// ==========================================================
 
 void init_cycle(Cycle* c) {
     c->edges = NULL;
@@ -394,9 +387,7 @@ int count_basic_variables(const TransportProblem* p) {
     return count;
 }
 
-// ==========================================================
 // DETECTION DE CYCLE (BFS)
-// ==========================================================
 
 int is_acyclic(const TransportProblem* p, Cycle* cycle) {
     printf("\n--- Test d'acyclicite (detection de cycle) ---\n");
@@ -545,9 +536,7 @@ int find_cycle(const TransportProblem* p, int si, int sj, Cycle* cycle) {
     return 1;
 }
 
-// ==========================================================
 // MAXIMISATION SUR CYCLE
-// ==========================================================
 
 int maximize_on_cycle(TransportProblem* p, const Cycle* cycle) {
     if (cycle->length == 0) return 0;
@@ -602,9 +591,7 @@ int maximize_on_cycle(TransportProblem* p, const Cycle* cycle) {
     return 1;
 }
 
-// ==========================================================
 // TEST DE CONNEXITE (BFS)
-// ==========================================================
 
 int is_connected(const TransportProblem* p) {
     printf("\n--- Test de connexite (parcours BFS) ---\n");
@@ -764,9 +751,7 @@ void make_connected(TransportProblem* p) {
     printf("Total aretes ajoutees: %d\n", added);
 }
 
-// ==========================================================
 // CALCUL DES POTENTIELS
-// ==========================================================
 
 void calculate_potentials(TransportProblem* p) {
     printf("\n--- Calcul des potentiels u_i et v_j ---\n");
@@ -809,9 +794,7 @@ void calculate_potentials(TransportProblem* p) {
     display_potentials(p);
 }
 
-// ==========================================================
 // COUTS MARGINAUX
-// ==========================================================
 
 void calculate_marginal_costs(TransportProblem* p) {
     for (int i = 0; i < p->n_suppliers; i++) {
@@ -854,9 +837,7 @@ void add_improving_edge(TransportProblem* p, int i, int j) {
     p->transport_plan[i][j] = 1; // Valeur symbolique qui sera ajustée
 }
 
-// ==========================================================
 // METHODE DU MARCHE-PIED
-// ==========================================================
 
 void run_step_stone(TransportProblem* p) {
     printf("\n\n");
@@ -960,90 +941,91 @@ void run_step_stone(TransportProblem* p) {
     }
 }
 
-int generate_random_problem(TransportProblem *problem,
-                            int n_suppliers,
-                            int m_clients,
-                            int min_cost,
-                            int max_cost,
-                            int min_capacity,
-                            int max_capacity) {
+// GENERATION DE PROBLEMES ALEATOIRES
 
-    problem->n_suppliers = n_suppliers;
-    problem->m_clients = m_clients;
-
-    // Allocation de la matrice des couts
-    problem->cost_matrix = (long long **)malloc(n_suppliers * sizeof(long long *));
-    if (!problem->cost_matrix) {
-        fprintf(stderr, "ERREUR: Allocation memoire pour cost_matrix\n");
-        return 0;
+TransportProblem* generate_random_transport_problem(int n) {
+    if (n <= 0) {
+        fprintf(stderr, "Erreur: n doit être strictement positif.\n");
+        return NULL;
     }
-    for (int i = 0; i < n_suppliers; i++) {
-        problem->cost_matrix[i] = (long long *)malloc(m_clients * sizeof(long long));
-        if (!problem->cost_matrix[i]) {
-            fprintf(stderr, "ERREUR: Allocation memoire pour cost_matrix[%d]\n", i);
-            return 0;
+
+    srand((unsigned int)time(NULL));
+
+    TransportProblem* p = (TransportProblem*)malloc(sizeof(TransportProblem));
+    if (!p) {
+        fprintf(stderr, "Erreur allocation TransportProblem.\n");
+        return NULL;
+    }
+
+    p->n_suppliers = n;
+    p->m_clients = n;
+    p->total_cost = 0;
+    p->cost_matrix = NULL;
+    p->transport_plan = NULL;
+    p->marginal_costs = NULL;
+    p->provisions = NULL;
+    p->commands = NULL;
+    p->u_potentials = NULL;
+    p->v_potentials = NULL;
+
+    // Allouer les matrices
+    initialize_problem_matrices(p);
+
+    printf("\n========== Génération problème aléatoire %dx%d ==========\n", n, n);
+
+    // Étape 1: Générer la matrice des coûts a_i,j (valeurs entre 1 et 100)
+    printf("Étape 1: Génération des coûts a_i,j...\n");
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            p->cost_matrix[i][j] = (rand() % 100) + 1;
         }
     }
 
-    // Allocation des provisions et commandes
-    problem->provisions = (long long *)malloc(n_suppliers * sizeof(long long));
-    problem->commands = (long long *)malloc(m_clients * sizeof(long long));
-
-    if (!problem->provisions || !problem->commands) {
-        fprintf(stderr, "ERREUR: Allocation memoire pour provisions/commands\n");
-        return 0;
-    }
-
-    // Generation aleatoire de la matrice des couts
-    printf("\nGeneration de la matrice des couts...\n");
-    for (int i = 0; i < n_suppliers; i++) {
-        for (int j = 0; j < m_clients; j++) {
-            problem->cost_matrix[i][j] = min_cost + rand() % (max_cost - min_cost + 1);
+    // Étape 2: Générer la matrice temporaire temp_i,j (valeurs entre 1 et 100)
+    printf("Étape 2: Génération de la matrice temporaire temp_i,j...\n");
+    int** temp = (int**)malloc(n * sizeof(int*));
+    for (int i = 0; i < n; i++) {
+        temp[i] = (int*)malloc(n * sizeof(int));
+        for (int j = 0; j < n; j++) {
+            temp[i][j] = (rand() % 100) + 1;
         }
     }
 
-    // Generation aleatoire des provisions
-    printf("Generation des provisions...\n");
-    long long total_provisions = 0;
-    for (int i = 0; i < n_suppliers; i++) {
-        problem->provisions[i] = min_capacity + rand() % (max_capacity - min_capacity + 1);
-        total_provisions += problem->provisions[i];
-    }
-
-    // Generation aleatoire des commandes (avec equilibre)
-    printf("Generation des commandes...\n");
-    long long total_commands = 0;
-
-    // Generer m_clients-1 commandes aleatoires
-    for (int j = 0; j < m_clients - 1; j++) {
-        problem->commands[j] = min_capacity + rand() % (max_capacity - min_capacity + 1);
-        total_commands += problem->commands[j];
-    }
-
-    // La derniere commande ajuste pour equilibrer
-    if (total_commands < total_provisions) {
-        problem->commands[m_clients - 1] = total_provisions - total_commands;
-    } else {
-        // Si total_commands >= total_provisions, on recalcule tout
-        total_commands = 0;
-        long long remaining = total_provisions;
-
-        for (int j = 0; j < m_clients - 1; j++) {
-            long long max_possible = remaining - (m_clients - 1 - j) * min_capacity;
-            if (max_possible < min_capacity) max_possible = min_capacity;
-            if (max_possible > max_capacity) max_possible = max_capacity;
-
-            problem->commands[j] = min_capacity + rand() % (max_possible - min_capacity + 1);
-            total_commands += problem->commands[j];
-            remaining -= problem->commands[j];
+    // Étape 3: Calculer les provisions P_i = somme(temp_i,j) pour j de 1 à n
+    printf("Étape 3: Calcul des provisions P_i...\n");
+    long long total_supply = 0;
+    for (int i = 0; i < n; i++) {
+        p->provisions[i] = 0;
+        for (int j = 0; j < n; j++) {
+            p->provisions[i] += temp[i][j];
         }
-        problem->commands[m_clients - 1] = remaining;
+        total_supply += p->provisions[i];
     }
 
-    printf("\n>>> Probleme aleatoire genere avec succes <<<\n");
-    printf("Total provisions: %lld\n", total_provisions);
-    printf("Total commandes:  %lld\n", total_provisions);
-    printf("Probleme equilibre: OUI\n");
+    // Étape 4: Calculer les commandes C_j = somme(temp_i,j) pour i de 1 à n
+    printf("Étape 4: Calcul des commandes C_j...\n");
+    long long total_demand = 0;
+    for (int j = 0; j < n; j++) {
+        p->commands[j] = 0;
+        for (int i = 0; i < n; i++) {
+            p->commands[j] += temp[i][j];
+        }
+        total_demand += p->commands[j];
+    }
 
-    return 1;
+    // Libérer la matrice temporaire
+    for (int i = 0; i < n; i++) {
+        free(temp[i]);
+    }
+    free(temp);
+
+    // Vérification (devrait toujours être équilibré par construction)
+    printf("\n=== Problème généré avec succès ===\n");
+    printf("Taille: %d x %d\n", n, n);
+    printf("Offre totale: %lld\n", total_supply);
+    printf("Demande totale: %lld\n", total_demand);
+    printf("Équilibre: %s\n", (total_supply == total_demand) ? "OUI" : "NON");
+    printf("===================================\n\n");
+
+    return p;
 }
