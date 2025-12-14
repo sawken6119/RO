@@ -91,4 +91,14 @@ void free_cycle(Cycle* c);
 void add_edge_to_cycle(Cycle* c, int i, int j);
 int count_basic_variables(const TransportProblem* p);
 
+int generate_random_problem(TransportProblem *problem,
+                            int n_suppliers,
+                            int m_clients,
+                            int min_cost,
+                            int max_cost,
+                            int min_capacity,
+                            int max_capacity);
+
+
 #endif // TRANSPORT_H
+
