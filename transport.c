@@ -121,9 +121,21 @@ void display_table(const char* title, int rows, int cols, int** matrix) {
         for(int k=0; k<cell_width+2; k++) printf("-");
     printf("\n");
 
-    for (int i = 0; i < rows; i++) {
+ /*   for (int i = 0; i < rows; i++) {
         printf("P%-*d |", cell_width-1, i+1);
         for (int j = 0; j < cols; j++) printf("%*d |", cell_width, matrix[i][j]);
+        printf("\n");
+    }*/
+    for (int i = 0; i < rows; i++) {
+        printf("P%-*d |", cell_width-1, i+1);
+        for (int j = 0; j < cols; j++) {
+            if (matrix[i][j] >= 0) {
+                printf("%*d |", cell_width, matrix[i][j]);
+            }
+            else{
+                printf("%*d |", cell_width, 0);
+            }
+        }
         printf("\n");
     }
 }
@@ -168,7 +180,7 @@ void display_potential_costs(const TransportProblem* p) {
     for (int i = 0; i < p->n_suppliers; i++) {
         pot_costs[i] = (int*)malloc(p->m_clients * sizeof(int));
         for (int j = 0; j < p->m_clients; j++) {
-            pot_costs[i][j] = p->u_potentials[i] + p->v_potentials[j];
+            pot_costs[i][j] = p->u_potentials[i] - p->v_potentials[j];
         }
     }
     display_table("Couts potentiels", p->n_suppliers, p->m_clients, pot_costs);
@@ -186,7 +198,9 @@ long long calculate_total_cost(const TransportProblem* p) {
     long long cost = 0;
     for (int i = 0; i < p->n_suppliers; i++)
         for (int j = 0; j < p->m_clients; j++)
-            cost += (long long)p->cost_matrix[i][j] * p->transport_plan[i][j];
+            if (p->transport_plan[i][j] >= 0) {
+                cost += (long long) p->cost_matrix[i][j] * p->transport_plan[i][j];
+            }
     return cost;
 }
 
@@ -454,7 +468,7 @@ int is_acyclic(const TransportProblem* p, Cycle* cycle) {
                     free(visited);
                     free(parent);
                     free(queue);
-                    return 0; // PAS acyclique
+                    return 0;
                 }
             }
         }
@@ -607,7 +621,7 @@ int is_connected(const TransportProblem* p) {
 
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
-            if (p->transport_plan[i][j] > 0) {
+            if (p->transport_plan[i][j] != 0) {
                 int u = i;
                 int v = n + j;
 
@@ -676,18 +690,23 @@ int is_connected(const TransportProblem* p) {
 
         // Afficher composantes connexes
         printf("Composantes connexes:\n");
-        int comp_num = 1;
-        for (int i = 0; i < total_nodes; i++) {
-            if (adj_size[i] > 0 && !visited[i]) {
-                printf("  Composante %d: ", comp_num++);
-                // Afficher quelques nœuds
-                if (i < n) printf("P%d ", i+1);
-                else printf("C%d ", i-n+1);
-                printf("(et autres)\n");
+        for (int i = 0; i < n; i++) {
+            for(int j = 0; j < m; j++){
+                if (p->transport_plan[i][j] != 0){
+                    printf("P%d -> C%d\n", i+1, j+1);
+                }
             }
         }
     } else {
         printf("Le graphe est CONNEXE.\n");
+        printf("Composantes connexes:\n");
+        for (int i = 0; i < n; i++) {
+            for(int j = 0; j < m; j++){
+                if (p->transport_plan[i][j] != 0){
+                    printf("P%d -> C%d\n", i+1, j+1);
+                }
+            }
+        }
     }
 
     for (int i = 0; i < total_nodes; i++) if (adj[i]) free(adj[i]);
@@ -737,7 +756,7 @@ void make_connected(TransportProblem* p) {
     // Ajouter arêtes jusqu'à n+m-1
     int added = 0;
     for (int k = 0; k < edge_count && current < expected; k++) {
-        p->transport_plan[edges[k].i][edges[k].j] = 0; // Epsilon symbolique
+        p->transport_plan[edges[k].i][edges[k].j] = -1; // Epsilon symbolique
         printf("Ajout arete P%d->C%d (cout=%d)\n",
                edges[k].i+1, edges[k].j+1, edges[k].cost);
         current++;
@@ -759,38 +778,21 @@ void calculate_potentials(TransportProblem* p) {
     int n = p->n_suppliers;
     int m = p->m_clients;
 
-    // Initialiser à une valeur invalide
-    for (int i = 0; i < n; i++) p->u_potentials[i] = INF;
-    for (int j = 0; j < m; j++) p->v_potentials[j] = INF;
-
     // Fixer u_0 = 0
     p->u_potentials[0] = 0;
 
-    // Itérer jusqu'à convergence
-    int changed = 1;
-    int iterations = 0;
-
-    while (changed && iterations < 100) {
-        changed = 0;
-        iterations++;
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (p->transport_plan[i][j] > 0) {
-                    // u_i + v_j = a_ij
-                    if (p->u_potentials[i] != INF && p->v_potentials[j] == INF) {
-                        p->v_potentials[j] = p->cost_matrix[i][j] - p->u_potentials[i];
-                        changed = 1;
-                    }
-                    else if (p->v_potentials[j] != INF && p->u_potentials[i] == INF) {
-                        p->u_potentials[i] = p->cost_matrix[i][j] - p->v_potentials[j];
-                        changed = 1;
-                    }
-                }
+    for (int j = 0; j < m; j++) {
+        if (p->transport_plan[0][j] != 0){
+            p->v_potentials[j] = -p->cost_matrix[0][j];
+        }
+    }
+    for (int j = 0; j < m; j++){
+        for (int i = 1; i < n; i++){
+            if (p->transport_plan[i][j] != 0){
+                p->u_potentials[i] = p->cost_matrix[i][j] + p->v_potentials[j];
             }
         }
     }
-
     display_potentials(p);
 }
 
@@ -799,8 +801,7 @@ void calculate_potentials(TransportProblem* p) {
 void calculate_marginal_costs(TransportProblem* p) {
     for (int i = 0; i < p->n_suppliers; i++) {
         for (int j = 0; j < p->m_clients; j++) {
-            p->marginal_costs[i][j] = p->cost_matrix[i][j] -
-                                      (p->u_potentials[i] + p->v_potentials[j]);
+            p->marginal_costs[i][j] = p->cost_matrix[i][j] - (p->u_potentials[i] - p->v_potentials[j]);
         }
     }
 }
@@ -863,20 +864,19 @@ void run_step_stone(TransportProblem* p) {
 
         // 2. Vérifier si dégénérée
         int nb_basic = count_basic_variables(p);
-        int expected = p->n_suppliers + p->m_clients - 1;
+        int expected = p->n_suppliers + p->m_clients - 1; // conditions pour qu'un graphe soit considéré comme un arbre
         printf("\nVariables de base: %d (attendu: %d)\n", nb_basic, expected);
 
         if (nb_basic < expected) {
             printf("La proposition est DEGENEREE!\n");
         }
 
-        // 3. Test acyclicité EN PREMIER (avant connexité)
+        // 3. Test acyclicité
         Cycle cycle;
         init_cycle(&cycle);
         int acyclic = is_acyclic(p, &cycle);
 
         while (!acyclic) {
-            printf("\n>>> Elimination du cycle detecte...\n");
             // Maximiser sur le cycle
             int changed = maximize_on_cycle(p, &cycle);
             if (!changed) {
@@ -894,12 +894,10 @@ void run_step_stone(TransportProblem* p) {
         }
         free_cycle(&cycle);
 
-        // 4. Test connexité (APRÈS avoir éliminé les cycles)
+        // 4. Test connexité
         int connected = is_connected(p);
         if (!connected) {
             make_connected(p);
-            display_table("Proposition apres ajout aretes",
-                         p->n_suppliers, p->m_clients, p->transport_plan);
         }
 
         // 5. Calcul des potentiels
