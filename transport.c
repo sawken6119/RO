@@ -399,8 +399,9 @@ int count_basic_variables(const TransportProblem* p) {
 // ==========================================================
 
 int is_acyclic(const TransportProblem* p, Cycle* cycle) {
-    (void)cycle; // plus utilisée ici
+    printf("\n--- Test d'acyclicite (detection de cycle) ---\n");
 
+    (void)cycle; // plus utilisée ici
     int n = p->n_suppliers;
     int m = p->m_clients;
     int total = n + m;
@@ -453,20 +454,31 @@ int is_acyclic(const TransportProblem* p, Cycle* cycle) {
                     queue[t++] = v;
                 } else if (parent[u] != v) {
                     // cycle détecté
+                    printf("CYCLE DETECTE dans le graphe!\n");
+
                     for (int i = 0; i < total; i++) free(adj[i]);
-                    free(adj); free(adj_size); free(adj_cap);
-                    free(visited); free(parent); free(queue);
-                    return 0;
+                    free(adj);
+                    free(adj_size);
+                    free(adj_cap);
+                    free(visited);
+                    free(parent);
+                    free(queue);
+                    return 0; // PAS acyclique
                 }
             }
         }
     }
 
-    for (int i = 0; i < total; i++) free(adj[i]);
-    free(adj); free(adj_size); free(adj_cap);
-    free(visited); free(parent); free(queue);
+    printf("Aucun cycle detecte - le graphe est ACYCLIQUE.\n");
 
-    return 1;
+    for (int i = 0; i < total; i++) free(adj[i]);
+    free(adj);
+    free(adj_size);
+    free(adj_cap);
+    free(visited);
+    free(parent);
+    free(queue);
+    return 1; 
 }
 
 int find_cycle(const TransportProblem* p, int si, int sj, Cycle* cycle) {
@@ -849,7 +861,7 @@ void add_improving_edge(TransportProblem* p, int i, int j) {
 void run_step_stone(TransportProblem* p) {
     printf("\n\n");
     printf("##########################################################\n");
-    printf("## METHODE DU MARCHE-PIED AVEC POTENTIELS              ##\n");
+    printf("## METHODE DU MARCHE-PIED AVEC POTENTIELS ##\n");
     printf("##########################################################\n");
 
     int iteration = 0;
@@ -859,12 +871,12 @@ void run_step_stone(TransportProblem* p) {
         iteration++;
         printf("\n");
         printf("==========================================================\n");
-        printf("                    ITERATION %d\n", iteration);
+        printf(" ITERATION %d\n", iteration);
         printf("==========================================================\n");
 
         // 1. Afficher proposition actuelle
         display_table("Proposition de transport actuelle",
-                      p->n_suppliers, p->m_clients, p->transport_plan);
+                     p->n_suppliers, p->m_clients, p->transport_plan);
         p->total_cost = calculate_total_cost(p);
         printf("Cout total: %lld\n", p->total_cost);
 
@@ -877,13 +889,13 @@ void run_step_stone(TransportProblem* p) {
             printf("La proposition est DEGENEREE!\n");
         }
 
-        // 3. Test acyclicité
+        // 3. Test acyclicité EN PREMIER (avant connexité)
         Cycle cycle;
         init_cycle(&cycle);
-
         int acyclic = is_acyclic(p, &cycle);
 
         while (!acyclic) {
+            printf("\n>>> Elimination du cycle detecte...\n");
             // Maximiser sur le cycle
             int changed = maximize_on_cycle(p, &cycle);
             if (!changed) {
@@ -892,23 +904,21 @@ void run_step_stone(TransportProblem* p) {
             }
 
             display_table("Proposition apres maximisation",
-                          p->n_suppliers, p->m_clients, p->transport_plan);
+                         p->n_suppliers, p->m_clients, p->transport_plan);
 
             // Re-tester acyclicité
             free_cycle(&cycle);
             init_cycle(&cycle);
             acyclic = is_acyclic(p, &cycle);
         }
-
         free_cycle(&cycle);
 
-        // 4. Test connexité
+        // 4. Test connexité (APRÈS avoir éliminé les cycles)
         int connected = is_connected(p);
-
         if (!connected) {
             make_connected(p);
             display_table("Proposition apres ajout aretes",
-                          p->n_suppliers, p->m_clients, p->transport_plan);
+                         p->n_suppliers, p->m_clients, p->transport_plan);
         }
 
         // 5. Calcul des potentiels
@@ -930,8 +940,8 @@ void run_step_stone(TransportProblem* p) {
 
         // 8. Ajouter l'arête améliorante
         add_improving_edge(p, best_i, best_j);
-        init_cycle(&cycle);
 
+        init_cycle(&cycle);
         if (!find_cycle(p, best_i, best_j, &cycle)) {
             printf("ERREUR: cycle non trouve apres ajout\n");
             free_cycle(&cycle);
@@ -941,7 +951,6 @@ void run_step_stone(TransportProblem* p) {
         display_cycle(&cycle);
         maximize_on_cycle(p, &cycle);
         free_cycle(&cycle);
-
 
         printf("\n--- Fin iteration %d ---\n", iteration);
     }
