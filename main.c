@@ -2,11 +2,10 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <time.h>
 
-// ==========================================================
-// DEFINITION DES FICHIERS ET FONCTIONS UTILES
-// ==========================================================
+#define N 4
 
 // Liste des fichiers pour les problemes de transport
 const char *nomsFichiers[] = {
@@ -23,17 +22,10 @@ void clear_input_buffer() {
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
-// ==========================================================
-// PROGRAMME PRINCIPAL
-// ==========================================================
-
 int main() {
-    int choice;
+    int problem_index;
     char algorithm_choice[10];
     char continuer = 'O';
-
-    // Initialiser le generateur aleatoire
-    srand(time(NULL));
 
     printf("========================================================\n");
     printf("   PROJET DE RECHERCHE OPERATIONNELLE - EFREI\n");
@@ -45,7 +37,7 @@ int main() {
     while (continuer == 'O' || continuer == 'o') {
         TransportProblem problem;
 
-        // Initialiser la structure (important!)
+        // Initialiser la structure
         problem.cost_matrix = NULL;
         problem.transport_plan = NULL;
         problem.marginal_costs = NULL;
@@ -54,37 +46,21 @@ int main() {
         problem.u_potentials = NULL;
         problem.v_potentials = NULL;
 
-        // Menu principal
+        // Choix de l'indice du probleme
         printf("\n========================================================\n");
-        printf("MENU PRINCIPAL:\n");
-        printf("  1. Charger un probleme depuis un fichier\n");
-        printf("  2. Generer un probleme aleatoire\n");
-        printf("Votre choix (1 ou 2): ");
+        printf("Entrez le numero du probleme a traiter (1 a %d): ", NB_GRAPHES);
 
-        if (scanf("%d", &choice) != 1) {
-            fprintf(stderr, "ERREUR: Entree invalide.\n");
+        if (scanf("%d", &problem_index) != 1) {
+            printf("ERREUR: Entree invalide pour l'indice.\n");
             clear_input_buffer();
-            continue;
         }
         clear_input_buffer();
 
-        // Option 1: Charger depuis un fichier
-        if (choice == 1) {
-            int problem_index;
-            printf("\nEntrez le numero du probleme a traiter (1 a %d): ", NB_GRAPHES);
+        if (problem_index < 1 || problem_index > NB_GRAPHES || problem_index != 100) {
+            printf("ERREUR: Indice invalide (doit etre entre 1 et %d).\n", NB_GRAPHES);
+        }
 
-            if (scanf("%d", &problem_index) != 1) {
-                fprintf(stderr, "ERREUR: Entree invalide pour l'indice.\n");
-                clear_input_buffer();
-                continue;
-            }
-            clear_input_buffer();
-
-            if (problem_index < 1 || problem_index > NB_GRAPHES) {
-                fprintf(stderr, "ERREUR: Indice invalide (doit etre entre 1 et %d).\n", NB_GRAPHES);
-                continue;
-            }
-
+        if (problem_index != 100) {
             const char *filename = nomsFichiers[problem_index - 1];
             printf("Chargement du fichier: %s\n", filename);
             printf("========================================================\n");
@@ -97,74 +73,10 @@ int main() {
                 continue;
             }
         }
-        // Option 2: Generer un probleme aleatoire
-        else if (choice == 2) {
-            int n_suppliers, m_clients;
-            int min_cost, max_cost;
-            int min_capacity, max_capacity;
-
-            printf("\n--- PARAMETRES DU PROBLEME ALEATOIRE ---\n");
-
-            printf("Nombre de fournisseurs: ");
-            if (scanf("%d", &n_suppliers) != 1 || n_suppliers < 1) {
-                fprintf(stderr, "ERREUR: Nombre invalide.\n");
-                clear_input_buffer();
-                continue;
-            }
-
-            printf("Nombre de clients: ");
-            if (scanf("%d", &m_clients) != 1 || m_clients < 1) {
-                fprintf(stderr, "ERREUR: Nombre invalide.\n");
-                clear_input_buffer();
-                continue;
-            }
-
-            printf("Cout minimal: ");
-            if (scanf("%d", &min_cost) != 1) {
-                fprintf(stderr, "ERREUR: Valeur invalide.\n");
-                clear_input_buffer();
-                continue;
-            }
-
-            printf("Cout maximal: ");
-            if (scanf("%d", &max_cost) != 1 || max_cost < min_cost) {
-                fprintf(stderr, "ERREUR: Valeur invalide.\n");
-                clear_input_buffer();
-                continue;
-            }
-
-            printf("Capacite minimale: ");
-            if (scanf("%d", &min_capacity) != 1 || min_capacity < 1) {
-                fprintf(stderr, "ERREUR: Valeur invalide.\n");
-                clear_input_buffer();
-                continue;
-            }
-
-            printf("Capacite maximale: ");
-            if (scanf("%d", &max_capacity) != 1 || max_capacity < min_capacity) {
-                fprintf(stderr, "ERREUR: Valeur invalide.\n");
-                clear_input_buffer();
-                continue;
-            }
-
-            clear_input_buffer();
-
-            // Generer le probleme aleatoire
-            if (!generate_random_problem(&problem, n_suppliers, m_clients,
-                                        min_cost, max_cost,
-                                        min_capacity, max_capacity)) {
-                fprintf(stderr, "ERREUR: Echec de la generation du probleme.\n");
-                free_problem(&problem);
-                continue;
-            }
-        }
         else {
-            fprintf(stderr, "ERREUR: Choix invalide.\n");
-            continue;
+            problem = *generate_random_transport_problem(N);
         }
-
         // Afficher les matrices pour verification
-        printf("========================================================\n");
         display_problem_data(&problem);
 
         // Choix de l'algorithme pour la proposition initiale
@@ -178,9 +90,10 @@ int main() {
             fprintf(stderr, "ERREUR: Entree invalide pour l'algorithme.\n");
             clear_input_buffer();
             free_problem(&problem);
-            continue;
         }
         clear_input_buffer();
+
+        clock_t start_algo = clock();
 
         // Execution de l'algorithme choisi
         if (strcasecmp(algorithm_choice, "NO") == 0) {
@@ -188,12 +101,12 @@ int main() {
         } else if (strcasecmp(algorithm_choice, "BH") == 0) {
             balas_hammer(&problem);
         } else {
-            fprintf(stderr, "\nERREUR: Choix invalide '%s'.\n", algorithm_choice);
-            fprintf(stderr, "Veuillez choisir NO ou BH.\n");
+            printf("\nERREUR: Choix invalide '%s'.\n", algorithm_choice);
+            printf("Veuillez choisir NO ou BH.\n");
             free_problem(&problem);
-            continue;
         }
-
+        clock_t end_algo = clock();
+        clock_t start_mp = clock();
         // Methode du marche-pied avec potentiels
         run_step_stone(&problem);
 
@@ -211,13 +124,25 @@ int main() {
         long long final_cost = calculate_total_cost(&problem);
         printf("\n>>> COUT MINIMAL TOTAL: %lld <<<\n", final_cost);
         printf("##########################################################\n");
+        clock_t end_mp = clock();
 
         // Liberer la memoire avant de continuer
         free_problem(&problem);
 
-        // Demander si on veut tester un autre probleme
+
+        float temps_algo = (float)(end_algo - start_algo) / CLOCKS_PER_SEC; // Temps de l'algorithme de proposition initial
+        float temps_mp = (float)(end_mp - start_mp) / CLOCKS_PER_SEC; // Temps de l'algorithme du marche pied
+        printf("TEMPS D'EXECUTION DE L'ALGORITHME (NORD-OUEST ou BALLAS-HAMMER): %f\n", temps_algo);
+        printf("TEMPS D'EXECUTION DU MARCHE PIED : %f\n", temps_mp);
         printf("\n========================================================\n");
         printf("Voulez-vous tester un autre probleme de transport? (O/N): ");
+
+        if (problem_index == 100) {
+            FILE* file_temps = fopen("temps.txt", "w");
+            if (file_temps) {
+                fprintf(file_temps, "%f\n%f", temps_algo, temps_mp);
+            }
+        }
 
         if (scanf(" %c", &continuer) != 1) {
             continuer = 'N';
