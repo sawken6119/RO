@@ -138,9 +138,9 @@ int main() {
         printf("Voulez-vous tester un autre probleme de transport? (O/N): ");
 
         if (problem_index == 100) {
-            FILE* file_temps = fopen("temps.txt", "w");
+            FILE* file_temps = fopen("temps.txt", "a");
             if (file_temps) {
-                fprintf(file_temps, "%f\n%f", temps_algo, temps_mp);
+                fprintf(file_temps, "%f %f\n", temps_algo, temps_mp);
             }
         }
 
