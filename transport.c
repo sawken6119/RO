@@ -960,3 +960,90 @@ void run_step_stone(TransportProblem* p) {
     }
 }
 
+int generate_random_problem(TransportProblem *problem,
+                            int n_suppliers,
+                            int m_clients,
+                            int min_cost,
+                            int max_cost,
+                            int min_capacity,
+                            int max_capacity) {
+
+    problem->n_suppliers = n_suppliers;
+    problem->m_clients = m_clients;
+
+    // Allocation de la matrice des couts
+    problem->cost_matrix = (long long **)malloc(n_suppliers * sizeof(long long *));
+    if (!problem->cost_matrix) {
+        fprintf(stderr, "ERREUR: Allocation memoire pour cost_matrix\n");
+        return 0;
+    }
+    for (int i = 0; i < n_suppliers; i++) {
+        problem->cost_matrix[i] = (long long *)malloc(m_clients * sizeof(long long));
+        if (!problem->cost_matrix[i]) {
+            fprintf(stderr, "ERREUR: Allocation memoire pour cost_matrix[%d]\n", i);
+            return 0;
+        }
+    }
+
+    // Allocation des provisions et commandes
+    problem->provisions = (long long *)malloc(n_suppliers * sizeof(long long));
+    problem->commands = (long long *)malloc(m_clients * sizeof(long long));
+
+    if (!problem->provisions || !problem->commands) {
+        fprintf(stderr, "ERREUR: Allocation memoire pour provisions/commands\n");
+        return 0;
+    }
+
+    // Generation aleatoire de la matrice des couts
+    printf("\nGeneration de la matrice des couts...\n");
+    for (int i = 0; i < n_suppliers; i++) {
+        for (int j = 0; j < m_clients; j++) {
+            problem->cost_matrix[i][j] = min_cost + rand() % (max_cost - min_cost + 1);
+        }
+    }
+
+    // Generation aleatoire des provisions
+    printf("Generation des provisions...\n");
+    long long total_provisions = 0;
+    for (int i = 0; i < n_suppliers; i++) {
+        problem->provisions[i] = min_capacity + rand() % (max_capacity - min_capacity + 1);
+        total_provisions += problem->provisions[i];
+    }
+
+    // Generation aleatoire des commandes (avec equilibre)
+    printf("Generation des commandes...\n");
+    long long total_commands = 0;
+
+    // Generer m_clients-1 commandes aleatoires
+    for (int j = 0; j < m_clients - 1; j++) {
+        problem->commands[j] = min_capacity + rand() % (max_capacity - min_capacity + 1);
+        total_commands += problem->commands[j];
+    }
+
+    // La derniere commande ajuste pour equilibrer
+    if (total_commands < total_provisions) {
+        problem->commands[m_clients - 1] = total_provisions - total_commands;
+    } else {
+        // Si total_commands >= total_provisions, on recalcule tout
+        total_commands = 0;
+        long long remaining = total_provisions;
+
+        for (int j = 0; j < m_clients - 1; j++) {
+            long long max_possible = remaining - (m_clients - 1 - j) * min_capacity;
+            if (max_possible < min_capacity) max_possible = min_capacity;
+            if (max_possible > max_capacity) max_possible = max_capacity;
+
+            problem->commands[j] = min_capacity + rand() % (max_possible - min_capacity + 1);
+            total_commands += problem->commands[j];
+            remaining -= problem->commands[j];
+        }
+        problem->commands[m_clients - 1] = remaining;
+    }
+
+    printf("\n>>> Probleme aleatoire genere avec succes <<<\n");
+    printf("Total provisions: %lld\n", total_provisions);
+    printf("Total commandes:  %lld\n", total_provisions);
+    printf("Probleme equilibre: OUI\n");
+
+    return 1;
+}
