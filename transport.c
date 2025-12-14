@@ -111,7 +111,7 @@ void display_table(const char* title, int rows, int cols, int** matrix) {
     int max_val = 0;
     for (int i = 0; i < rows; i++)
         for (int j = 0; j < cols; j++)
-            if (matrix[i][j] > max_val) max_val = matrix[i][j];
+            if (abs(matrix[i][j]) > max_val) max_val = abs(matrix[i][j]);
 
     int cell_width = (max_val > 0) ? snprintf(NULL,0,"%d",max_val)+1 : 4;
     if (cell_width < 4) cell_width = 4;
@@ -950,3 +950,4 @@ void run_step_stone(TransportProblem* p) {
         printf("\nATTENTION: Nombre maximal d'iterations atteint!\n");
     }
 }
+
