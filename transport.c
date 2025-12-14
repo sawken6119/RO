@@ -117,7 +117,7 @@ void display_table(const char* title, int rows, int cols, int** matrix) {
     if (cell_width < 4) cell_width = 4;
 
     printf("%*s |", cell_width, "");
-    for (int j = 0; j < cols; j++) printf(" C%-*d|", cell_width-2, j+1);
+    for (int j = 0; j < cols; j++) printf(" C%-*d|", cell_width-1, j+1);
     printf("\n");
 
     for (int j = 0; j <= cols; j++)
@@ -138,9 +138,9 @@ void display_problem_data(const TransportProblem* p) {
     printf("#################################################\n");
 
     printf("\n--- Matrice des couts unitaires (A) ---\n");
-    printf("%8s |", "");
+    printf("%6s |", "");
     for (int j = 0; j < p->m_clients; j++) printf("  C%-3d |", j+1);
-    printf("   Pi  |\n");
+    printf("   Pi   |\n");
 
     for (int i = 0; i < p->n_suppliers; i++) {
         printf("P%-3d   |", i+1);
@@ -149,7 +149,7 @@ void display_problem_data(const TransportProblem* p) {
         printf(" %6d |\n", p->provisions[i]);
     }
 
-    printf("%8s |", "Cj");
+    printf("%s     |", "Cj");
     for (int j = 0; j < p->m_clients; j++) printf("%6d |", p->commands[j]);
     printf("\n");
 }
