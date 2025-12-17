@@ -1,3 +1,12 @@
+========================================================
+   PROJET DE RECHERCHE OPERATIONNELLE - EFREI
+   Resolution du Probleme de Transport
+   Methode du Marche-Pied avec Potentiels
+========================================================
+
+========================================================
+Entrez le numero du probleme a traiter (1 a 12):8
+ ERREUR: Indice invalide (doit etre entre 1 et 12).
 Chargement du fichier: problem_8.txt
 ========================================================
 
@@ -6,20 +15,19 @@ Probleme de Transport (5 fournisseurs x 2 clients)
 #################################################
 
 --- Matrice des couts unitaires (A) ---
-         |  C1   |  C2   |   Pi  |
+       |  C1   |  C2   |   Pi   |
 P1     |    50 |    20 |    100 |
 P2     |    10 |    50 |    200 |
 P3     |    55 |    40 |    100 |
 P4     |    35 |    45 |    200 |
 P5     |    12 |     8 |    200 |
-      Cj |   300 |   500 |
+Cj     |   300 |   500 |
 
 ========================================================
 Choisissez l'algorithme pour la proposition initiale:
   - NO : Nord-Ouest
   - BH : Balas-Hammer
-Votre choix:no
-
+Votre choix:NO
 
 ========== ALGORITHME : Coin Nord-Ouest ==========
 Affectation P1 -> C1 : 100 (reste P1=0, C1=200)
@@ -29,7 +37,7 @@ Affectation P4 -> C2 : 200 (reste P4=0, C2=200)
 Affectation P5 -> C2 : 200 (reste P5=0, C2=0)
 
 --- Proposition initiale (Nord-Ouest) ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   | 100 |   0 |
 P2   | 200 |   0 |
@@ -41,15 +49,15 @@ Cout total initial : 21600
 
 
 ##########################################################
-## METHODE DU MARCHE-PIED AVEC POTENTIELS              ##
+## METHODE DU MARCHE-PIED AVEC POTENTIELS ##
 ##########################################################
 
 ==========================================================
-                    ITERATION 1
+ ITERATION 1
 ==========================================================
 
 --- Proposition de transport actuelle ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   | 100 |   0 |
 P2   | 200 |   0 |
@@ -60,6 +68,9 @@ Cout total: 21600
 
 Variables de base: 5 (attendu: 6)
 La proposition est DEGENEREE!
+
+--- Test d'acyclicite (detection de cycle) ---
+Aucun cycle detecte - le graphe est ACYCLIQUE.
 
 --- Test de connexite (parcours BFS) ---
 Le graphe est NON CONNEXE!
@@ -85,7 +96,7 @@ Composantes connexes:
 Total aretes ajoutees: 1
 
 --- Proposition apres ajout aretes ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   | 100 |   0 |
 P2   | 200 |   0 |
@@ -102,7 +113,7 @@ v: v1=50  v2=1000000
 --- Table des couts potentiels (u_i + v_j) ---
 
 --- Couts potentiels ---
-         | C1     | C2     |
+         | C1      | C2      |
 ------------------------------
 P1       |      50 | 1000000 |
 P2       |      10 |  999960 |
@@ -111,13 +122,13 @@ P4       | 1000050 | 2000000 |
 P5       | 1000050 | 2000000 |
 
 --- Couts marginaux ---
-     | C1 | C2 |
-------------------
-P1   |   0 |-999980 |
-P2   |   0 |-999910 |
-P3   |-999995 |-1999960 |
-P4   |-1000015 |-1999955 |
-P5   |-1000038 |-1999992 |
+         | C1      | C2      |
+------------------------------
+P1       |       0 | -999980 |
+P2       |       0 | -999910 |
+P3       | -999995 |-1999960 |
+P4       |-1000015 |-1999955 |
+P5       |-1000038 |-1999992 |
 
 ==> Arete ameliorante trouvee: P5->C1 (cout marginal = -1000038)
 Ajout de l'arete ameliorante P5->C1
@@ -131,11 +142,11 @@ Arete supprimee : P5->C1
 --- Fin iteration 1 ---
 
 ==========================================================
-                    ITERATION 2
+ ITERATION 2
 ==========================================================
 
 --- Proposition de transport actuelle ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   | 100 |   0 |
 P2   | 200 |   0 |
@@ -145,6 +156,9 @@ P5   |   1 | 200 |
 Cout total: 21612
 
 Variables de base: 6 (attendu: 6)
+
+--- Test d'acyclicite (detection de cycle) ---
+Aucun cycle detecte - le graphe est ACYCLIQUE.
 
 --- Test de connexite (parcours BFS) ---
 Le graphe est CONNEXE.
@@ -158,7 +172,7 @@ v: v1=50  v2=46
 --- Table des couts potentiels (u_i + v_j) ---
 
 --- Couts potentiels ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   |  50 |  46 |
 P2   |  10 |   6 |
@@ -167,7 +181,7 @@ P4   |  49 |  45 |
 P5   |  12 |   8 |
 
 --- Couts marginaux ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   |   0 | -26 |
 P2   |   0 |  44 |
@@ -187,11 +201,11 @@ Arete supprimee : P1->C2
 --- Fin iteration 2 ---
 
 ==========================================================
-                    ITERATION 3
+ ITERATION 3
 ==========================================================
 
 --- Proposition de transport actuelle ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   | 100 |   1 |
 P2   | 200 |   0 |
@@ -201,6 +215,11 @@ P5   |   1 | 200 |
 Cout total: 21632
 
 Variables de base: 7 (attendu: 6)
+
+--- Test d'acyclicite (detection de cycle) ---
+CYCLE DETECTE dans le graphe!
+
+>>> Elimination du cycle detecte...
 Impossible de maximiser (delta=0)
 
 --- Test de connexite (parcours BFS) ---
@@ -215,7 +234,7 @@ v: v1=50  v2=20
 --- Table des couts potentiels (u_i + v_j) ---
 
 --- Couts potentiels ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   |  50 |  20 |
 P2   |  10 | -20 |
@@ -224,7 +243,7 @@ P4   |  75 |  45 |
 P5   |  12 | -18 |
 
 --- Couts marginaux ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   |   0 |   0 |
 P2   |   0 |  70 |
@@ -244,11 +263,11 @@ Arete supprimee : P4->C1
 --- Fin iteration 3 ---
 
 ==========================================================
-                    ITERATION 4
+ ITERATION 4
 ==========================================================
 
 --- Proposition de transport actuelle ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   | 100 |   1 |
 P2   | 200 |   0 |
@@ -258,6 +277,11 @@ P5   |   1 | 200 |
 Cout total: 21667
 
 Variables de base: 8 (attendu: 6)
+
+--- Test d'acyclicite (detection de cycle) ---
+CYCLE DETECTE dans le graphe!
+
+>>> Elimination du cycle detecte...
 Impossible de maximiser (delta=0)
 
 --- Test de connexite (parcours BFS) ---
@@ -272,7 +296,7 @@ v: v1=50  v2=20
 --- Table des couts potentiels (u_i + v_j) ---
 
 --- Couts potentiels ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   |  50 |  20 |
 P2   |  10 | -20 |
@@ -281,7 +305,7 @@ P4   |  35 |   5 |
 P5   |  12 | -18 |
 
 --- Couts marginaux ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   |   0 |   0 |
 P2   |   0 |  70 |
@@ -301,11 +325,11 @@ Arete supprimee : P3->C1
 --- Fin iteration 4 ---
 
 ==========================================================
-                    ITERATION 5
+ ITERATION 5
 ==========================================================
 
 --- Proposition de transport actuelle ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   | 100 |   1 |
 P2   | 200 |   0 |
@@ -315,6 +339,11 @@ P5   |   1 | 200 |
 Cout total: 21722
 
 Variables de base: 9 (attendu: 6)
+
+--- Test d'acyclicite (detection de cycle) ---
+CYCLE DETECTE dans le graphe!
+
+>>> Elimination du cycle detecte...
 Impossible de maximiser (delta=0)
 
 --- Test de connexite (parcours BFS) ---
@@ -329,7 +358,7 @@ v: v1=50  v2=20
 --- Table des couts potentiels (u_i + v_j) ---
 
 --- Couts potentiels ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   |  50 |  20 |
 P2   |  10 | -20 |
@@ -338,7 +367,7 @@ P4   |  35 |   5 |
 P5   |  12 | -18 |
 
 --- Couts marginaux ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   |   0 |   0 |
 P2   |   0 |  70 |
@@ -356,7 +385,7 @@ P5   |   0 |  26 |
 ##########################################################
 
 --- PROPOSITION DE TRANSPORT OPTIMALE ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   | 100 |   1 |
 P2   | 200 |   0 |
@@ -366,3 +395,7 @@ P5   |   1 | 200 |
 
 >>> COUT MINIMAL TOTAL: 21722 <<<
 ##########################################################
+TEMPS D'EXECUTION DE L'ALGORITHME (NORD-OUEST ou BALLAS-HAMMER): 0.018000
+TEMPS D'EXECUTION DU MARCHE PIED : 0.273000
+
+========================================================

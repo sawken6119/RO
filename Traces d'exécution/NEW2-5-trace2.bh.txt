@@ -1,10 +1,4 @@
 ========================================================
-   PROJET DE RECHERCHE OPERATIONNELLE - EFREI
-   Resolution du Probleme de Transport
-   Methode du Marche-Pied avec Potentiels
-========================================================
-
-========================================================
 Entrez le numero du probleme a traiter (1 a 12):2
  ERREUR: Indice invalide (doit etre entre 1 et 12).
 Chargement du fichier: problem_2.txt
@@ -24,18 +18,27 @@ Cj     |   100 |   100 |
 Choisissez l'algorithme pour la proposition initiale:
   - NO : Nord-Ouest
   - BH : Balas-Hammer
-Votre choix:NO
+Votre choix:BH
 
-========== ALGORITHME : Coin Nord-Ouest ==========
-Affectation P1 -> C1 : 100 (reste P1=0, C1=0)
-Affectation P2 -> C2 : 100 (reste P2=0, C2=0)
+========== ALGORITHME : Balas-Hammer ==========
+Penalite ligne P1 : 10 (min1=10, min2=20)
+Penalite ligne P2 : 20 (min1=10, min2=30)
+Penalite colonne C1 : 20 (min1=10, min2=30)
+Penalite colonne C2 : 10 (min1=10, min2=20)
+--> Penalite maximale = 20 (ligne P2)
+Affectation P2 -> C2 : 100
 
---- Proposition initiale (Nord-Ouest) ---
+Penalite ligne P1 : 10 (min1=10, min2=-1)
+Penalite colonne C1 : 10 (min1=10, min2=-1)
+--> Penalite maximale = 10 (ligne P1)
+Affectation P1 -> C1 : 100
+
+
+--- Proposition initiale (Balas-Hammer) ---
      | C1  | C2  |
 ------------------
 P1   | 100 |   0 |
 P2   |   0 | 100 |
-
 Cout total initial : 2000
 
 
@@ -172,7 +175,7 @@ P2   |   0 | 100 |
 
 >>> COUT MINIMAL TOTAL: 2020 <<<
 ##########################################################
-TEMPS D'EXECUTION DE L'ALGORITHME (NORD-OUEST ou BALLAS-HAMMER): 0.012000
+TEMPS D'EXECUTION DE L'ALGORITHME (NORD-OUEST ou BALLAS-HAMMER): 0.023000
 TEMPS D'EXECUTION DU MARCHE PIED : 0.108000
 
 ========================================================

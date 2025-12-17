@@ -1,4 +1,13 @@
- Chargement du fichier: problem_1.txt
+========================================================
+   PROJET DE RECHERCHE OPERATIONNELLE - EFREI
+   Resolution du Probleme de Transport
+   Methode du Marche-Pied avec Potentiels
+========================================================
+
+========================================================
+Entrez le numero du probleme a traiter (1 a 12):1
+ ERREUR: Indice invalide (doit etre entre 1 et 12).
+Chargement du fichier: problem_1.txt
 ========================================================
 
 #################################################
@@ -6,10 +15,10 @@ Probleme de Transport (2 fournisseurs x 2 clients)
 #################################################
 
 --- Matrice des couts unitaires (A) ---
-         |  C1   |  C2   |   Pi  |
+       |  C1   |  C2   |   Pi   |
 P1     |    30 |    20 |    100 |
 P2     |    10 |    50 |    100 |
-      Cj |   100 |   100 |
+Cj     |   100 |   100 |
 
 ========================================================
 Choisissez l'algorithme pour la proposition initiale:
@@ -22,7 +31,7 @@ Affectation P1 -> C1 : 100 (reste P1=0, C1=0)
 Affectation P2 -> C2 : 100 (reste P2=0, C2=0)
 
 --- Proposition initiale (Nord-Ouest) ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   | 100 |   0 |
 P2   |   0 | 100 |
@@ -31,15 +40,15 @@ Cout total initial : 8000
 
 
 ##########################################################
-## METHODE DU MARCHE-PIED AVEC POTENTIELS              ##
+## METHODE DU MARCHE-PIED AVEC POTENTIELS ##
 ##########################################################
 
 ==========================================================
-                    ITERATION 1
+ ITERATION 1
 ==========================================================
 
 --- Proposition de transport actuelle ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   | 100 |   0 |
 P2   |   0 | 100 |
@@ -47,6 +56,9 @@ Cout total: 8000
 
 Variables de base: 2 (attendu: 3)
 La proposition est DEGENEREE!
+
+--- Test d'acyclicite (detection de cycle) ---
+Aucun cycle detecte - le graphe est ACYCLIQUE.
 
 --- Test de connexite (parcours BFS) ---
 Le graphe est NON CONNEXE!
@@ -68,7 +80,7 @@ Composantes connexes:
 Total aretes ajoutees: 1
 
 --- Proposition apres ajout aretes ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   | 100 |   0 |
 P2   |   0 | 100 |
@@ -82,16 +94,16 @@ v: v1=30  v2=1000000
 --- Table des couts potentiels (u_i + v_j) ---
 
 --- Couts potentiels ---
-         | C1     | C2     |
+         | C1      | C2      |
 ------------------------------
 P1       |      30 | 1000000 |
 P2       | 1000030 | 2000000 |
 
 --- Couts marginaux ---
-     | C1 | C2 |
-------------------
-P1   |   0 |-999980 |
-P2   |-1000020 |-1999950 |
+         | C1      | C2      |
+------------------------------
+P1       |       0 | -999980 |
+P2       |-1000020 |-1999950 |
 
 ==> Arete ameliorante trouvee: P2->C1 (cout marginal = -1000020)
 Ajout de l'arete ameliorante P2->C1
@@ -105,17 +117,20 @@ Arete supprimee : P2->C1
 --- Fin iteration 1 ---
 
 ==========================================================
-                    ITERATION 2
+ ITERATION 2
 ==========================================================
 
 --- Proposition de transport actuelle ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   | 100 |   0 |
 P2   |   1 | 100 |
 Cout total: 8010
 
 Variables de base: 3 (attendu: 3)
+
+--- Test d'acyclicite (detection de cycle) ---
+Aucun cycle detecte - le graphe est ACYCLIQUE.
 
 --- Test de connexite (parcours BFS) ---
 Le graphe est CONNEXE.
@@ -129,13 +144,13 @@ v: v1=30  v2=70
 --- Table des couts potentiels (u_i + v_j) ---
 
 --- Couts potentiels ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   |  30 |  70 |
 P2   |  10 |  50 |
 
 --- Couts marginaux ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   |   0 | -50 |
 P2   |   0 |   0 |
@@ -152,17 +167,22 @@ Arete supprimee : P1->C2
 --- Fin iteration 2 ---
 
 ==========================================================
-                    ITERATION 3
+ ITERATION 3
 ==========================================================
 
 --- Proposition de transport actuelle ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   | 100 |   1 |
 P2   |   1 | 100 |
 Cout total: 8030
 
 Variables de base: 4 (attendu: 3)
+
+--- Test d'acyclicite (detection de cycle) ---
+CYCLE DETECTE dans le graphe!
+
+>>> Elimination du cycle detecte...
 Impossible de maximiser (delta=0)
 
 --- Test de connexite (parcours BFS) ---
@@ -177,13 +197,13 @@ v: v1=30  v2=20
 --- Table des couts potentiels (u_i + v_j) ---
 
 --- Couts potentiels ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   |  30 |  20 |
 P2   |  10 |   0 |
 
 --- Couts marginaux ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   |   0 |   0 |
 P2   |   0 |  50 |
@@ -198,10 +218,12 @@ P2   |   0 |  50 |
 ##########################################################
 
 --- PROPOSITION DE TRANSPORT OPTIMALE ---
-     | C1 | C2 |
+     | C1  | C2  |
 ------------------
 P1   | 100 |   1 |
 P2   |   1 | 100 |
 
 >>> COUT MINIMAL TOTAL: 8030 <<<
 ##########################################################
+TEMPS D'EXECUTION DE L'ALGORITHME (NORD-OUEST ou BALLAS-HAMMER): 0.014000
+TEMPS D'EXECUTION DU MARCHE PIED : 0.141000

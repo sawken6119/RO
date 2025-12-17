@@ -1,10 +1,4 @@
 ========================================================
-   PROJET DE RECHERCHE OPERATIONNELLE - EFREI
-   Resolution du Probleme de Transport
-   Methode du Marche-Pied avec Potentiels
-========================================================
-
-========================================================
 Entrez le numero du probleme a traiter (1 a 12):6
  ERREUR: Indice invalide (doit etre entre 1 et 12).
 Chargement du fichier: problem_6.txt
@@ -25,24 +19,62 @@ Cj     |    50 |    75 |    30 |    25 |
 Choisissez l'algorithme pour la proposition initiale:
   - NO : Nord-Ouest
   - BH : Balas-Hammer
-Votre choix:NO
+Votre choix:BH
 
-========== ALGORITHME : Coin Nord-Ouest ==========
-Affectation P1 -> C1 : 50 (reste P1=10, C1=0)
-Affectation P1 -> C2 : 10 (reste P1=0, C2=65)
-Affectation P2 -> C2 : 30 (reste P2=0, C2=35)
-Affectation P3 -> C2 : 35 (reste P3=55, C2=0)
-Affectation P3 -> C3 : 30 (reste P3=25, C3=0)
-Affectation P3 -> C4 : 25 (reste P3=0, C4=0)
+========== ALGORITHME : Balas-Hammer ==========
+Penalite ligne P1 : 0 (min1=10, min2=10)
+Penalite ligne P2 : 1 (min1=15, min2=16)
+Penalite ligne P3 : 1 (min1=19, min2=20)
+Penalite colonne C1 : 6 (min1=11, min2=17)
+Penalite colonne C2 : 4 (min1=12, min2=16)
+Penalite colonne C3 : 5 (min1=10, min2=15)
+Penalite colonne C4 : 8 (min1=10, min2=18)
+--> Penalite maximale = 8 (colonne C4)
+Affectation P1 -> C4 : 25
 
---- Proposition initiale (Nord-Ouest) ---
+Penalite ligne P1 : 1 (min1=10, min2=11)
+Penalite ligne P2 : 1 (min1=15, min2=16)
+Penalite ligne P3 : 1 (min1=19, min2=20)
+Penalite colonne C1 : 6 (min1=11, min2=17)
+Penalite colonne C2 : 4 (min1=12, min2=16)
+Penalite colonne C3 : 5 (min1=10, min2=15)
+--> Penalite maximale = 6 (colonne C1)
+Affectation P1 -> C1 : 35
+
+Penalite ligne P2 : 1 (min1=15, min2=16)
+Penalite ligne P3 : 1 (min1=19, min2=20)
+Penalite colonne C1 : 2 (min1=17, min2=19)
+Penalite colonne C2 : 5 (min1=16, min2=21)
+Penalite colonne C3 : 5 (min1=15, min2=20)
+--> Penalite maximale = 5 (colonne C2)
+Affectation P2 -> C2 : 30
+
+Penalite ligne P3 : 1 (min1=19, min2=20)
+Penalite colonne C1 : 19 (min1=19, min2=-1)
+Penalite colonne C2 : 21 (min1=21, min2=-1)
+Penalite colonne C3 : 20 (min1=20, min2=-1)
+--> Penalite maximale = 21 (colonne C2)
+Affectation P3 -> C2 : 45
+
+Penalite ligne P3 : 1 (min1=19, min2=20)
+Penalite colonne C1 : 19 (min1=19, min2=-1)
+Penalite colonne C3 : 20 (min1=20, min2=-1)
+--> Penalite maximale = 20 (colonne C3)
+Affectation P3 -> C3 : 30
+
+Penalite ligne P3 : 19 (min1=19, min2=-1)
+Penalite colonne C1 : 19 (min1=19, min2=-1)
+--> Penalite maximale = 19 (ligne P3)
+Affectation P3 -> C1 : 15
+
+
+--- Proposition initiale (Balas-Hammer) ---
      | C1  | C2  | C3  | C4  |
 ------------------------------
-P1   |  50 |  10 |   0 |   0 |
+P1   |  35 |   0 |   0 |  25 |
 P2   |   0 |  30 |   0 |   0 |
-P3   |   0 |  35 |  30 |  25 |
-
-Cout total initial : 3035
+P3   |  15 |  45 |  30 |   0 |
+Cout total initial : 2945
 
 
 ##########################################################
@@ -56,10 +88,10 @@ Cout total initial : 3035
 --- Proposition de transport actuelle ---
      | C1  | C2  | C3  | C4  |
 ------------------------------
-P1   |  50 |  10 |   0 |   0 |
+P1   |  35 |   0 |   0 |  25 |
 P2   |   0 |  30 |   0 |   0 |
-P3   |   0 |  35 |  30 |  25 |
-Cout total: 3035
+P3   |  15 |  45 |  30 |   0 |
+Cout total: 2945
 
 Variables de base: 6 (attendu: 6)
 
@@ -72,33 +104,33 @@ Le graphe est CONNEXE.
 --- Calcul des potentiels u_i et v_j ---
 
 --- Potentiels ---
-u: u1=0  u2=4  u3=9
-v: v1=11  v2=12  v3=11  v4=13
+u: u1=0  u2=3  u3=8
+v: v1=11  v2=13  v3=12  v4=10
 
 --- Table des couts potentiels (u_i + v_j) ---
 
 --- Couts potentiels ---
      | C1  | C2  | C3  | C4  |
 ------------------------------
-P1   |  11 |  12 |  11 |  13 |
-P2   |  15 |  16 |  15 |  17 |
-P3   |  20 |  21 |  20 |  22 |
+P1   |  11 |  13 |  12 |  10 |
+P2   |  14 |  16 |  15 |  13 |
+P3   |  19 |  21 |  20 |  18 |
 
 --- Couts marginaux ---
      | C1  | C2  | C3  | C4  |
 ------------------------------
-P1   |   0 |   0 |  -1 |  -3 |
-P2   |   2 |   0 |   0 |   1 |
-P3   |  -1 |   0 |   0 |   0 |
+P1   |   0 |  -1 |  -2 |   0 |
+P2   |   3 |   0 |   0 |   5 |
+P3   |   0 |   0 |   0 |   4 |
 
-==> Arete ameliorante trouvee: P1->C4 (cout marginal = -3)
-Ajout de l'arete ameliorante P1->C4
-Cycle detecte : P1->C4 -> P1->C4
+==> Arete ameliorante trouvee: P1->C3 (cout marginal = -2)
+Ajout de l'arete ameliorante P1->C3
+Cycle detecte : P1->C3 -> P1->C3
 
 --- Maximisation du transport sur le cycle ---
-Arete P1->C4 : b[1][4] = 1
+Arete P1->C3 : b[1][3] = 1
 Delta = 1
-Arete supprimee : P1->C4
+Arete supprimee : P1->C3
 
 --- Fin iteration 1 ---
 
@@ -109,10 +141,10 @@ Arete supprimee : P1->C4
 --- Proposition de transport actuelle ---
      | C1  | C2  | C3  | C4  |
 ------------------------------
-P1   |  50 |  10 |   0 |   1 |
+P1   |  35 |   0 |   1 |  25 |
 P2   |   0 |  30 |   0 |   0 |
-P3   |   0 |  35 |  30 |  25 |
-Cout total: 3045
+P3   |  15 |  45 |  30 |   0 |
+Cout total: 2955
 
 Variables de base: 7 (attendu: 6)
 
@@ -128,33 +160,33 @@ Le graphe est CONNEXE.
 --- Calcul des potentiels u_i et v_j ---
 
 --- Potentiels ---
-u: u1=0  u2=4  u3=9
-v: v1=11  v2=12  v3=11  v4=10
+u: u1=0  u2=3  u3=8
+v: v1=11  v2=13  v3=10  v4=10
 
 --- Table des couts potentiels (u_i + v_j) ---
 
 --- Couts potentiels ---
      | C1  | C2  | C3  | C4  |
 ------------------------------
-P1   |  11 |  12 |  11 |  10 |
-P2   |  15 |  16 |  15 |  14 |
-P3   |  20 |  21 |  20 |  19 |
+P1   |  11 |  13 |  10 |  10 |
+P2   |  14 |  16 |  13 |  13 |
+P3   |  19 |  21 |  18 |  18 |
 
 --- Couts marginaux ---
      | C1  | C2  | C3  | C4  |
 ------------------------------
-P1   |   0 |   0 |  -1 |   0 |
-P2   |   2 |   0 |   0 |   4 |
-P3   |  -1 |   0 |   0 |   3 |
+P1   |   0 |  -1 |   0 |   0 |
+P2   |   3 |   0 |   2 |   5 |
+P3   |   0 |   0 |   2 |   4 |
 
-==> Arete ameliorante trouvee: P1->C3 (cout marginal = -1)
-Ajout de l'arete ameliorante P1->C3
-Cycle detecte : P1->C3 -> P1->C3
+==> Arete ameliorante trouvee: P1->C2 (cout marginal = -1)
+Ajout de l'arete ameliorante P1->C2
+Cycle detecte : P1->C2 -> P1->C2
 
 --- Maximisation du transport sur le cycle ---
-Arete P1->C3 : b[1][3] = 1
+Arete P1->C2 : b[1][2] = 1
 Delta = 1
-Arete supprimee : P1->C3
+Arete supprimee : P1->C2
 
 --- Fin iteration 2 ---
 
@@ -165,68 +197,12 @@ Arete supprimee : P1->C3
 --- Proposition de transport actuelle ---
      | C1  | C2  | C3  | C4  |
 ------------------------------
-P1   |  50 |  10 |   1 |   1 |
+P1   |  35 |   1 |   1 |  25 |
 P2   |   0 |  30 |   0 |   0 |
-P3   |   0 |  35 |  30 |  25 |
-Cout total: 3055
+P3   |  15 |  45 |  30 |   0 |
+Cout total: 2967
 
 Variables de base: 8 (attendu: 6)
-
---- Test d'acyclicite (detection de cycle) ---
-CYCLE DETECTE dans le graphe!
-
->>> Elimination du cycle detecte...
-Impossible de maximiser (delta=0)
-
---- Test de connexite (parcours BFS) ---
-Le graphe est CONNEXE.
-
---- Calcul des potentiels u_i et v_j ---
-
---- Potentiels ---
-u: u1=0  u2=4  u3=9
-v: v1=11  v2=12  v3=10  v4=10
-
---- Table des couts potentiels (u_i + v_j) ---
-
---- Couts potentiels ---
-     | C1  | C2  | C3  | C4  |
-------------------------------
-P1   |  11 |  12 |  10 |  10 |
-P2   |  15 |  16 |  14 |  14 |
-P3   |  20 |  21 |  19 |  19 |
-
---- Couts marginaux ---
-     | C1  | C2  | C3  | C4  |
-------------------------------
-P1   |   0 |   0 |   0 |   0 |
-P2   |   2 |   0 |   1 |   4 |
-P3   |  -1 |   0 |   1 |   3 |
-
-==> Arete ameliorante trouvee: P3->C1 (cout marginal = -1)
-Ajout de l'arete ameliorante P3->C1
-Cycle detecte : P3->C1 -> P3->C1
-
---- Maximisation du transport sur le cycle ---
-Arete P3->C1 : b[3][1] = 1
-Delta = 1
-Arete supprimee : P3->C1
-
---- Fin iteration 3 ---
-
-==========================================================
- ITERATION 4
-==========================================================
-
---- Proposition de transport actuelle ---
-     | C1  | C2  | C3  | C4  |
-------------------------------
-P1   |  50 |  10 |   1 |   1 |
-P2   |   0 |  30 |   0 |   0 |
-P3   |   1 |  35 |  30 |  25 |
-Cout total: 3074
-
-Variables de base: 9 (attendu: 6)
 
 --- Test d'acyclicite (detection de cycle) ---
 CYCLE DETECTE dans le graphe!
@@ -271,13 +247,13 @@ P3   |   0 |   1 |   2 |   4 |
 --- PROPOSITION DE TRANSPORT OPTIMALE ---
      | C1  | C2  | C3  | C4  |
 ------------------------------
-P1   |  50 |  10 |   1 |   1 |
+P1   |  35 |   1 |   1 |  25 |
 P2   |   0 |  30 |   0 |   0 |
-P3   |   1 |  35 |  30 |  25 |
+P3   |  15 |  45 |  30 |   0 |
 
->>> COUT MINIMAL TOTAL: 3074 <<<
+>>> COUT MINIMAL TOTAL: 2967 <<<
 ##########################################################
-TEMPS D'EXECUTION DE L'ALGORITHME (NORD-OUEST ou BALLAS-HAMMER): 0.020000
-TEMPS D'EXECUTION DU MARCHE PIED : 0.199000
+TEMPS D'EXECUTION DE L'ALGORITHME (NORD-OUEST ou BALLAS-HAMMER): 0.077000
+TEMPS D'EXECUTION DU MARCHE PIED : 0.151000
 
 ========================================================
