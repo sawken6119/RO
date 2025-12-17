@@ -262,7 +262,8 @@ void balas_hammer(TransportProblem* p) {
 
     while (iterations > 0) {
         int best_penalty = -1;
-        int best_i = -1, best_j = -1;
+        int best_i = -1;
+        int best_j = -1;
         int is_row = 0;
 
         // Pénalités lignes
@@ -292,6 +293,14 @@ void balas_hammer(TransportProblem* p) {
                 best_j = min_j;
                 is_row = 1;
             }
+            else if(penalty == best_penalty){
+                if (p->cost_matrix[best_i][best_j] > min1){
+                    best_penalty = penalty;
+                    best_i = i;
+                    best_j = min_j;
+                    is_row = 1;
+                }
+            }
         }
 
         // Pénalités colonnes
@@ -320,6 +329,14 @@ void balas_hammer(TransportProblem* p) {
                 best_i = min_i;
                 best_j = j;
                 is_row = 0;
+            }
+            else if(penalty == best_penalty){
+                if (p->cost_matrix[best_i][best_j] > min1){
+                    best_penalty = penalty;
+                    best_i = min_i;
+                    best_j = j;
+                    is_row = 0;
+                }
             }
         }
 
